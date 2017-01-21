@@ -1,0 +1,131 @@
+package brunner_giger.fahrplanapp;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.List;
+
+import ch.schoeb.opendatatransport.IOpenTransportRepository;
+import ch.schoeb.opendatatransport.OpenDataTransportException;
+import ch.schoeb.opendatatransport.OpenTransportRepositoryFactory;
+import ch.schoeb.opendatatransport.model.Connection;
+import ch.schoeb.opendatatransport.model.ConnectionList;
+
+/**
+ * Created by r.giger on 21.01.2017.
+ */
+
+public class FahrplanFragment extends Fragment {
+    View FahrplanView = null;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (container != null) {
+            container.removeAllViews();
+        }
+        FahrplanView =  inflater.inflate(R.layout.content_fahrplan, container, false);
+        Button btn = (Button) FahrplanView.findViewById(R.id.btnVerbindungSuchen);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadConnections();
+            }
+        });
+        return FahrplanView;
+    }
+    private void LoadConnections() {
+
+
+        EditText txtFrom = (EditText) FahrplanView.findViewById(R.id.txtVon);
+        EditText txtTo = (EditText) FahrplanView.findViewById(R.id.txtNach);
+        ConnectionSearch cs = new ConnectionSearch(txtFrom.getText().toString(),txtTo.getText().toString());
+        new LoaderTask().execute(cs);
+    }
+
+    public class ConnectionSearch
+    {
+        public String From;
+        public String To;
+
+        public ConnectionSearch(String from, String to)
+        {
+            From = from;
+            To = to;
+        }
+    }
+    //TODO In Service auslagern
+    private class LoaderTask extends AsyncTask<ConnectionSearch, Void, ConnectionList> {
+
+
+        @Override
+        protected ConnectionList doInBackground(ConnectionSearch... params) {
+            // Get Repository
+            IOpenTransportRepository repo = OpenTransportRepositoryFactory.CreateOnlineOpenTransportRepository();
+
+            ConnectionList connectionList = null;
+            try {
+                connectionList = repo.searchConnections(params[0].From, params[0].To);
+            } catch (OpenDataTransportException e) {
+                e.printStackTrace();
+                //TODO Fehlerhandling
+            }
+
+            return connectionList;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected void onPostExecute(ConnectionList connectionList) {
+            ListView lv = (ListView) FahrplanView.findViewById(R.id.listVerbindungen);
+
+            // Construct the data source
+            List<Connection> listOfConnections =connectionList.getConnections();
+// Create the adapter to convert the array to views
+            ConnectionAdapter adapter = new ConnectionAdapter(getContext(), listOfConnections);
+// Attach the adapter to a ListView
+            ListView listView = (ListView) FahrplanView.findViewById(R.id.listVerbindungen);
+            listView.setAdapter(adapter);
+        }
+    }
+    public class ConnectionAdapter extends ArrayAdapter<Connection> {
+        public ConnectionAdapter(Context context, List<Connection> connections) {
+            super(context, 0, connections);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // Get the data item for this position
+            Connection connection = getItem(position);
+            // Check if an existing view is being reused, otherwise inflate the view
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_connection, parent, false);
+            }
+
+            // Lookup view for data population
+            TextView tvFrom = (TextView) convertView.findViewById(R.id.tvFrom);
+            TextView tvTo = (TextView) convertView.findViewById(R.id.tvTo);
+            TextView tvDuration = (TextView) convertView.findViewById(R.id.tvDuration);
+            // Populate the data into the template view using the data object
+            tvFrom.setText(connection.getFrom().getStation().getName());
+            tvTo.setText(connection.getTo().getStation().getName());
+            tvDuration.setText(connection.getDuration());
+            // Return the completed view to render on screen
+            return convertView;
+        }
+
+    }
+
+}
