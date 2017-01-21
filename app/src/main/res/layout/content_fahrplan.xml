@@ -14,51 +14,92 @@
     tools:showIn="@layout/app_bar_main">
 
     <TextView
-        android:id="@+id/VonLabel"
+        android:id="@+id/FromLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Von:"
         android:layout_margin="10dp"/>
-
-    <EditText
+    <FrameLayout
         android:layout_width="match_parent"
-        android:id="@+id/txtVon"
+        android:layout_height="wrap_content"
+        android:id="@+id/flFrom"
         android:layout_marginLeft="10dp"
-        android:layout_alignBaseline="@+id/VonLabel"
-        android:layout_alignBottom="@+id/VonLabel"
-        android:layout_toEndOf="@+id/NachLabel"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/edittext_border"
-        android:layout_height="40dp"
-        android:layout_centerVertical="false"
-        android:layout_alignParentRight="false"
-        android:paddingLeft="5dp"
-        android:singleLine="true"
-        style="@style/Widget.AppCompat.AutoCompleteTextView" />
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/FromLabel">
+        <brunner_giger.fahrplanapp.DelayAutoCompleteTextView
+            android:inputType="textCapSentences"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:id="@+id/txtFrom"
 
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/edittext_border"
+            android:layout_height="40dp"
+            android:layout_centerVertical="false"
+            android:layout_alignParentRight="false"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
+            android:imeOptions="flagNoExtractUi|actionSearch"/>
+        <ProgressBar
+            android:id="@+id/pb_loading_indicatorFrom"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="-5dp"
+            android:visibility="gone"
+            />
+
+
+    </FrameLayout>
     <TextView
-        android:id="@+id/NachLabel"
+        android:id="@+id/ToLabel"
         android:layout_width="wrap_content"
         android:text="Nach:"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/VonLabel"
-        android:layout_alignStart="@+id/VonLabel"
+        android:layout_below="@+id/FromLabel"
+        android:layout_alignStart="@+id/FromLabel"
         android:layout_height="wrap_content" />
-
-    <EditText
+    <FrameLayout
         android:layout_width="match_parent"
-        android:id="@+id/txtNach"
-        android:layout_alignBaseline="@+id/NachLabel"
-        android:layout_alignBottom="@+id/NachLabel"
-        android:layout_alignStart="@+id/txtVon"
-        android:background="@drawable/edittext_border"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:paddingLeft="5dp"
-        android:layout_height="40dp"
-        android:singleLine="true"
-        style="@style/Widget.AppCompat.AutoCompleteTextView" />
+        android:layout_height="wrap_content"
+        android:id="@+id/flTo"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/flFrom"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/FromLabel">
+        <brunner_giger.fahrplanapp.DelayAutoCompleteTextView
+            android:inputType="textCapSentences"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:id="@+id/txtTo"
+
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/edittext_border"
+            android:layout_height="40dp"
+            android:layout_centerVertical="false"
+            android:layout_alignParentRight="false"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
+            android:imeOptions="flagNoExtractUi|actionSearch"/>
+        <ProgressBar
+            android:id="@+id/pb_loading_indicatorTo"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="-5dp"
+            android:visibility="gone"
+            />
+
+
+    </FrameLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,7 +107,7 @@
         android:id="@+id/btnVerbindungSuchen"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/txtNach" />
+        android:layout_below="@+id/flTo" />
 
     <ListView
         android:layout_width="match_parent"
@@ -76,4 +117,6 @@
         android:id="@+id/listVerbindungen"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/btnVerbindungSuchen"/>
+
+
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,12 +21,14 @@ import ch.schoeb.opendatatransport.OpenDataTransportException;
 import ch.schoeb.opendatatransport.OpenTransportRepositoryFactory;
 import ch.schoeb.opendatatransport.model.Connection;
 import ch.schoeb.opendatatransport.model.ConnectionList;
+import ch.schoeb.opendatatransport.model.Station;
 
 /**
  * Created by r.giger on 21.01.2017.
  */
 
 public class FahrplanFragment extends Fragment {
+    private static final int THRESHOLD = 2;
     View FahrplanView = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,13 +43,32 @@ public class FahrplanFragment extends Fragment {
                 LoadConnections();
             }
         });
+
+        SetListenerForStationAutocomplete(R.id.txtFrom, R.id.pb_loading_indicatorFrom);
+        SetListenerForStationAutocomplete(R.id.txtTo, R.id.pb_loading_indicatorTo);
         return FahrplanView;
     }
+
+    private void SetListenerForStationAutocomplete(int autoCompleteTextView, int indicator) {
+        final DelayAutoCompleteTextView stationName = (DelayAutoCompleteTextView) FahrplanView.findViewById(autoCompleteTextView);
+        stationName.setThreshold(THRESHOLD);
+        stationName.setAdapter(new StationAutoCompleteAdapter(FahrplanView.getContext()));
+        stationName.setLoadingIndicator(
+                (android.widget.ProgressBar) FahrplanView.findViewById(indicator));
+        stationName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Station station = (Station) adapterView.getItemAtPosition(position);
+                stationName.setText(station.getName());
+            }
+        });
+    }
+
     private void LoadConnections() {
 
 
-        EditText txtFrom = (EditText) FahrplanView.findViewById(R.id.txtVon);
-        EditText txtTo = (EditText) FahrplanView.findViewById(R.id.txtNach);
+        EditText txtFrom = (EditText) FahrplanView.findViewById(R.id.txtFrom);
+        EditText txtTo = (EditText) FahrplanView.findViewById(R.id.txtTo);
         ConnectionSearch cs = new ConnectionSearch(txtFrom.getText().toString(),txtTo.getText().toString());
         new LoaderTask().execute(cs);
     }

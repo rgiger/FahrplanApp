@@ -146,9 +146,9 @@ public class MainActivity extends AppCompatActivity
             fragment = new FahrplanFragment();
         }
         else if (id == R.id.nav_share) {
-
+            //TODO umsetzten oder entfernen
         } else if (id == R.id.nav_send) {
-
+            //TODO umsetzten oder entfernen
         }
         fragmentManager.beginTransaction().replace(R.id.conent_holder, fragment).commit();
 
