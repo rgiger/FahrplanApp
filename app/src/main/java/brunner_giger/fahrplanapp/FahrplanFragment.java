@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -49,8 +50,6 @@ public class FahrplanFragment extends Fragment {
         return FahrplanView;
     }
 
-
-
     private void SetListenerForStationAutocomplete(int autoCompleteTextView, int indicator) {
         final DelayAutoCompleteTextView stationName = (DelayAutoCompleteTextView) FahrplanView.findViewById(autoCompleteTextView);
         stationName.setThreshold(THRESHOLD);
@@ -67,7 +66,6 @@ public class FahrplanFragment extends Fragment {
     }
 
     private void LoadConnections() {
-
 
         EditText txtFrom = (EditText) FahrplanView.findViewById(R.id.txtFrom);
         EditText txtTo = (EditText) FahrplanView.findViewById(R.id.txtTo);
@@ -113,8 +111,6 @@ public class FahrplanFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ConnectionList connectionList) {
-            ListView lv = (ListView) FahrplanView.findViewById(R.id.listVerbindungen);
-
             // Construct the data source
             List<Connection> listOfConnections =connectionList.getConnections();
 // Create the adapter to convert the array to views
@@ -122,8 +118,14 @@ public class FahrplanFragment extends Fragment {
 // Attach the adapter to a ListView
             ListView listView = (ListView) FahrplanView.findViewById(R.id.listVerbindungen);
             listView.setAdapter(adapter);
+
+            // Hide the Keyboard
+            Context mContext = getContext();
+            InputMethodManager imm = (InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(FahrplanView.getWindowToken(), 0);
         }
     }
+
     public class ConnectionAdapter extends ArrayAdapter<Connection> {
         public ConnectionAdapter(Context context, List<Connection> connections) {
             super(context, 0, connections);
