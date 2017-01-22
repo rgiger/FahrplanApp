@@ -49,6 +49,8 @@ public class FahrplanFragment extends Fragment {
         return FahrplanView;
     }
 
+
+
     private void SetListenerForStationAutocomplete(int autoCompleteTextView, int indicator) {
         final DelayAutoCompleteTextView stationName = (DelayAutoCompleteTextView) FahrplanView.findViewById(autoCompleteTextView);
         stationName.setThreshold(THRESHOLD);
