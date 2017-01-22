@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -37,11 +39,25 @@ public class FahrplanFragment extends Fragment {
             container.removeAllViews();
         }
         FahrplanView =  inflater.inflate(R.layout.content_fahrplan, container, false);
-        Button btn = (Button) FahrplanView.findViewById(R.id.btnVerbindungSuchen);
-        btn.setOnClickListener(new View.OnClickListener() {
+        Button btnSearchConnection = (Button) FahrplanView.findViewById(R.id.btnSearchConnection);
+        btnSearchConnection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoadConnections();
+            }
+        });
+
+        FahrplanView =  inflater.inflate(R.layout.content_fahrplan, container, false);
+        final ImageButton btnReverse= (ImageButton) FahrplanView.findViewById(R.id.btnReverseConnection);
+        btnReverse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final DelayAutoCompleteTextView txtFrom = (DelayAutoCompleteTextView) FahrplanView.findViewById(R.id.txtFrom);
+                final DelayAutoCompleteTextView txtTo = (DelayAutoCompleteTextView) FahrplanView.findViewById(R.id.txtTo);
+                Editable from = txtFrom.getText();
+                txtFrom.setText(txtTo.getText());
+                txtTo.setText(from);
+                //TODO: Focus verursacht, dass das Autocomplete ausgeführt wird --> Verbessern
             }
         });
 

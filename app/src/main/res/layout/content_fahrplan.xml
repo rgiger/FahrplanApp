@@ -104,9 +104,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Verbindung suchen"
-        android:id="@+id/btnVerbindungSuchen"
+        android:id="@+id/btnSearchConnection"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
+        android:paddingLeft="75dp"
+        android:paddingRight="75dp"
+        android:layout_below="@+id/flTo" />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/reverseconnection"
+        android:id="@+id/btnReverseConnection"
+        android:scaleType="fitCenter"
+        android:padding="10dp"
+        android:layout_toRightOf="@+id/btnSearchConnection"
+        android:layout_above="@+id/listVerbindungen"
         android:layout_below="@+id/flTo" />
 
     <ListView
@@ -116,7 +127,7 @@
         android:layout_alignParentStart="true"
         android:id="@+id/listVerbindungen"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/btnVerbindungSuchen"/>
+        android:layout_below="@+id/btnSearchConnection"/>
 
 
 </RelativeLayout>
