@@ -39,16 +39,15 @@ public class FahrplanFragment extends Fragment {
             container.removeAllViews();
         }
         FahrplanView =  inflater.inflate(R.layout.content_fahrplan, container, false);
-        Button btnSearchConnection = (Button) FahrplanView.findViewById(R.id.btnSearchConnection);
-        btnSearchConnection.setOnClickListener(new View.OnClickListener() {
+        Button btn = (Button) FahrplanView.findViewById(R.id.btnSearchConnection);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoadConnections();
             }
         });
 
-        FahrplanView =  inflater.inflate(R.layout.content_fahrplan, container, false);
-        final ImageButton btnReverse= (ImageButton) FahrplanView.findViewById(R.id.btnReverseConnection);
+        ImageButton btnReverse= (ImageButton) FahrplanView.findViewById(R.id.btnReverseConnection);
         btnReverse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
