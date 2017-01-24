@@ -37,18 +37,28 @@ public class DelayAutoCompleteTextView extends AutoCompleteTextView {
 
     @Override
     protected void performFiltering(CharSequence text, int keyCode) {
-        if (mLoadingIndicator != null) {
-            mLoadingIndicator.setVisibility(View.VISIBLE);
+        if (_indicatorActive) {
+            if (mLoadingIndicator != null) {
+                mLoadingIndicator.setVisibility(View.VISIBLE);
+            }
+            mHandler.removeMessages(MESSAGE_TEXT_CHANGED);
+            mHandler.sendMessageDelayed(mHandler.obtainMessage(MESSAGE_TEXT_CHANGED, text), mAutoCompleteDelay);
         }
-        mHandler.removeMessages(MESSAGE_TEXT_CHANGED);
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(MESSAGE_TEXT_CHANGED, text), mAutoCompleteDelay);
     }
 
     @Override
     public void onFilterComplete(int count) {
-        if (mLoadingIndicator != null) {
-            mLoadingIndicator.setVisibility(View.GONE);
+        if (_indicatorActive) {
+            if (mLoadingIndicator != null) {
+                mLoadingIndicator.setVisibility(View.GONE);
+            }
+            super.onFilterComplete(count);
         }
-        super.onFilterComplete(count);
+    }
+
+    boolean _indicatorActive = true;
+    public void SetIndicatorActive(boolean indicatorActive) {
+        _indicatorActive = indicatorActive;
+
     }
 }

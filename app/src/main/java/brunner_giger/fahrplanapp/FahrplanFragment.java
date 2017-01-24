@@ -34,7 +34,7 @@ public class FahrplanFragment extends Fragment {
     private static final int THRESHOLD = 2;
     View FahrplanView = null;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         if (container != null) {
             container.removeAllViews();
         }
@@ -51,11 +51,16 @@ public class FahrplanFragment extends Fragment {
         btnReverse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FahrplanView.clearFocus();
                 final DelayAutoCompleteTextView txtFrom = (DelayAutoCompleteTextView) FahrplanView.findViewById(R.id.txtFrom);
                 final DelayAutoCompleteTextView txtTo = (DelayAutoCompleteTextView) FahrplanView.findViewById(R.id.txtTo);
+                txtFrom.SetIndicatorActive(false);
+                txtTo.SetIndicatorActive(false);
                 Editable from = txtFrom.getText();
                 txtFrom.setText(txtTo.getText());
                 txtTo.setText(from);
+                txtFrom.SetIndicatorActive(true);
+                txtTo.SetIndicatorActive(true);
                 //TODO: Focus verursacht, dass das Autocomplete ausgeführt wird --> Verbessern
             }
         });
