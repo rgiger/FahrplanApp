@@ -119,17 +119,30 @@
         android:scaleType="fitCenter"
         android:padding="10dp"
         android:layout_toRightOf="@+id/btnSearchConnection"
-        android:layout_above="@+id/listVerbindungen"
-        android:layout_below="@+id/flTo" />
-
+        android:layout_below="@+id/flTo"
+        android:layout_alignBottom="@+id/btnSearchConnection" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/flVerbindungen"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btnSearchConnection">
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/listVerbindungen"
-        android:layout_marginTop="10dp"
+        android:id="@+id/listConnections"
         android:layout_below="@+id/btnSearchConnection"/>
+        <ProgressBar
+            android:id="@+id/pb_loading_indicatorListConnections"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|right"
+            android:visibility="gone"
+            />
+    </FrameLayout>
 
 
 </RelativeLayout>

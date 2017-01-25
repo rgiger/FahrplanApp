@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -89,6 +90,9 @@ public class FahrplanFragment extends Fragment {
 
         EditText txtFrom = (EditText) FahrplanView.findViewById(R.id.txtFrom);
         EditText txtTo = (EditText) FahrplanView.findViewById(R.id.txtTo);
+
+        ProgressBar pb = (android.widget.ProgressBar) FahrplanView.findViewById(R.id.pb_loading_indicatorListConnections);
+        pb.setVisibility(View.VISIBLE);
         ConnectionSearch cs = new ConnectionSearch(txtFrom.getText().toString(),txtTo.getText().toString());
         new LoaderTask().execute(cs);
     }
@@ -136,7 +140,10 @@ public class FahrplanFragment extends Fragment {
 // Create the adapter to convert the array to views
             ConnectionAdapter adapter = new ConnectionAdapter(getContext(), listOfConnections);
 // Attach the adapter to a ListView
-            ListView listView = (ListView) FahrplanView.findViewById(R.id.listVerbindungen);
+
+            ProgressBar pb = (android.widget.ProgressBar) FahrplanView.findViewById(R.id.pb_loading_indicatorListConnections);
+            pb.setVisibility(View.GONE);
+            ListView listView = (ListView) FahrplanView.findViewById(R.id.listConnections);
             listView.setAdapter(adapter);
 
             // Hide the Keyboard

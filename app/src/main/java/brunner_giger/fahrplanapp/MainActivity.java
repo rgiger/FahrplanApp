@@ -145,11 +145,11 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_fahrplan) {
             fragment = new FahrplanFragment();
         }
-        else if (id == R.id.nav_share) {
+        /*else if (id == R.id.nav_share) {
             //TODO umsetzten oder entfernen
         } else if (id == R.id.nav_send) {
             //TODO umsetzten oder entfernen
-        }
+        }*/
         fragmentManager.beginTransaction().replace(R.id.conent_holder, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
