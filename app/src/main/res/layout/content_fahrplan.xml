@@ -114,7 +114,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_cached_black"
+        android:src="@drawable/ic_cached_black_24dp"
         android:id="@+id/btnReverseConnection"
         android:scaleType="fitCenter"
         android:padding="10dp"

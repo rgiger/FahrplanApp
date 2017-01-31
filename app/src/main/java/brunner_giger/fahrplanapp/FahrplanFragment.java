@@ -1,5 +1,6 @@
 package brunner_giger.fahrplanapp;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -62,14 +63,30 @@ public class FahrplanFragment extends Fragment {
                 txtTo.setText(from);
                 txtFrom.SetIndicatorActive(true);
                 txtTo.SetIndicatorActive(true);
-                //TODO: Focus verursacht, dass das Autocomplete ausgeführt wird --> Verbessern
             }
         });
 
         SetListenerForStationAutocomplete(R.id.txtFrom, R.id.pb_loading_indicatorFrom);
         SetListenerForStationAutocomplete(R.id.txtTo, R.id.pb_loading_indicatorTo);
+
+        ListView listConnection= (ListView) FahrplanView.findViewById(R.id.listConnections);
+       /* listConnection.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                LoadDetail(v);
+            }});*/
         return FahrplanView;
     }
+
+/*    private void LoadDetail(View v) {
+        Bundle arguments = new Bundle();
+
+        DetailConnectionFragment fragment = null;
+        //FragmentManager fragmentManager = getFragmentManager();
+        fragment = new DetailConnectionFragment();
+        //fragmentManager.beginTransaction().replace(R.id.conent_holder, fragment).commit();
+    }*/
 
     private void SetListenerForStationAutocomplete(int autoCompleteTextView, int indicator) {
         final DelayAutoCompleteTextView stationName = (DelayAutoCompleteTextView) FahrplanView.findViewById(autoCompleteTextView);
