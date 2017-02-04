@@ -48,13 +48,22 @@ public class DepartureArrivalTimePicker
         tglDeparture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tglArrival.setChecked(!tglDeparture.isChecked());
+                if(!tglDeparture.isChecked()) {
+                    tglArrival.setChecked(!tglDeparture.isChecked());
+                }
+                else
+                {tglDeparture.setChecked(false);}
             }
         });
         tglArrival.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tglDeparture.setChecked(!tglArrival.isChecked());
+                if(!tglArrival.isChecked()) {
+                    tglDeparture.setChecked(!tglArrival.isChecked());
+                }
+                else {
+                    tglArrival.setChecked(false);
+                }
             }
         });
     }

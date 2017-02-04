@@ -119,6 +119,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/flTime"
+        android:layout_marginTop="1dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_below="@+id/divisorToTime"
@@ -146,16 +147,29 @@
             android:background="@drawable/transparentbackground_withoutborder"/>
 
     </FrameLayout>
+    <View
+        android:id="@+id/divisorBelowTime"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#9f9f9f"
+        android:layout_below="@id/flTime"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Verbindung suchen"
         android:id="@+id/btnSearchConnection"
         android:layout_alignParentLeft="true"
         android:paddingLeft="75dp"
         android:paddingRight="75dp"
-        android:layout_below="@+id/flTime" />
+        android:layout_below="@+id/divisorBelowTime"
+        android:background="@drawable/transparentbackground_withoutborder"/>
+    <View
+        android:id="@+id/divisorBelowSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#9f9f9f"
+        android:layout_below="@id/btnSearchConnection"/>
 
 
 
