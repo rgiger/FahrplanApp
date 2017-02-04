@@ -1,4 +1,4 @@
-package brunner_giger.fahrplanapp;
+package brunner_giger.fahrplanapp.Controls;
 
 import android.content.Context;
 import android.os.Handler;

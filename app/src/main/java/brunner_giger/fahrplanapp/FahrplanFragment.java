@@ -1,5 +1,6 @@
 package brunner_giger.fahrplanapp;
 
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -10,17 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
+import brunner_giger.fahrplanapp.Adapter.ConnectionAdapter;
+import brunner_giger.fahrplanapp.Adapter.StationAutoCompleteAdapter;
+import brunner_giger.fahrplanapp.Controls.DelayAutoCompleteTextView;
+import brunner_giger.fahrplanapp.Controls.DepartureArrivalTimePicker;
+import brunner_giger.fahrplanapp.Model.ConnectionSearch;
 import ch.schoeb.opendatatransport.IOpenTransportRepository;
 import ch.schoeb.opendatatransport.OpenDataTransportException;
 import ch.schoeb.opendatatransport.OpenTransportRepositoryFactory;
@@ -31,16 +38,34 @@ import ch.schoeb.opendatatransport.model.Station;
 /**
  * Created by r.giger on 21.01.2017.
  */
-
 public class FahrplanFragment extends Fragment {
     private static final int THRESHOLD = 2;
     View FahrplanView = null;
+    Calendar When = Calendar.getInstance();
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         if (container != null) {
             container.removeAllViews();
         }
         FahrplanView =  inflater.inflate(R.layout.content_fahrplan, container, false);
+        SetupListener();
+        SetupWhenButton();
+        return FahrplanView;
+    }
+
+    private void SetupWhenButton() {
+        Button btn = (Button) FahrplanView.findViewById(R.id.btnSetWhen);
+        When = Calendar.getInstance();
+        UpdateWhenButton(btn);
+
+    }
+
+    private void UpdateWhenButton(Button btn) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        btn.setText("Abfahrt " + sdf.format(When.getTime()) );
+    }
+
+    private void SetupListener() {
         Button btn = (Button) FahrplanView.findViewById(R.id.btnSearchConnection);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,35 +73,69 @@ public class FahrplanFragment extends Fragment {
                 LoadConnections();
             }
         });
-
+        AddWhenButtonListener();
         ImageButton btnReverse= (ImageButton) FahrplanView.findViewById(R.id.btnReverseConnection);
         btnReverse.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                FahrplanView.clearFocus();
-                final DelayAutoCompleteTextView txtFrom = (DelayAutoCompleteTextView) FahrplanView.findViewById(R.id.txtFrom);
-                final DelayAutoCompleteTextView txtTo = (DelayAutoCompleteTextView) FahrplanView.findViewById(R.id.txtTo);
-                txtFrom.SetIndicatorActive(false);
-                txtTo.SetIndicatorActive(false);
-                Editable from = txtFrom.getText();
-                txtFrom.setText(txtTo.getText());
-                txtTo.setText(from);
-                txtFrom.SetIndicatorActive(true);
-                txtTo.SetIndicatorActive(true);
-            }
+            public void onClick(View v) {ReverseConnection(); }
         });
 
         SetListenerForStationAutocomplete(R.id.txtFrom, R.id.pb_loading_indicatorFrom);
         SetListenerForStationAutocomplete(R.id.txtTo, R.id.pb_loading_indicatorTo);
 
         ListView listConnection= (ListView) FahrplanView.findViewById(R.id.listConnections);
+        listConnection.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+                //Check if the last view is visible
+                if (++firstVisibleItem + visibleItemCount > totalItemCount) {
+
+                    //load more content
+                }
+            }
        /* listConnection.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
                 LoadDetail(v);
             }});*/
-        return FahrplanView;
+
+    });
+    }
+
+    private void AddWhenButtonListener() {
+        Button btn = (Button) FahrplanView.findViewById(R.id.btnSetWhen);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadTimePicker();
+            }
+        });
+    }
+
+    private void LoadTimePicker() {
+        DialogFragment newFragment = new DepartureArrivalTimePicker();
+        FragmentManager fragmentManager = getFragmentManager();
+        newFragment.show(fragmentManager, "timePicker");
+    }
+
+    private void ReverseConnection() {
+        FahrplanView.clearFocus();
+        final DelayAutoCompleteTextView txtFrom = (DelayAutoCompleteTextView) FahrplanView.findViewById(R.id.txtFrom);
+        final DelayAutoCompleteTextView txtTo = (DelayAutoCompleteTextView) FahrplanView.findViewById(R.id.txtTo);
+        txtFrom.SetIndicatorActive(false);
+        txtTo.SetIndicatorActive(false);
+        Editable from = txtFrom.getText();
+        txtFrom.setText(txtTo.getText());
+        txtTo.setText(from);
+        txtFrom.SetIndicatorActive(true);
+        txtTo.SetIndicatorActive(true);
     }
 
 /*    private void LoadDetail(View v) {
@@ -114,17 +173,7 @@ public class FahrplanFragment extends Fragment {
         new LoaderTask().execute(cs);
     }
 
-    public class ConnectionSearch
-    {
-        public String From;
-        public String To;
 
-        public ConnectionSearch(String from, String to)
-        {
-            From = from;
-            To = to;
-        }
-    }
     //TODO In Service auslagern
     private class LoaderTask extends AsyncTask<ConnectionSearch, Void, ConnectionList> {
 
@@ -137,6 +186,7 @@ public class FahrplanFragment extends Fragment {
             ConnectionList connectionList = null;
             try {
                 connectionList = repo.searchConnections(params[0].From, params[0].To);
+
             } catch (OpenDataTransportException e) {
                 e.printStackTrace();
                 //TODO Fehlerhandling
@@ -170,32 +220,6 @@ public class FahrplanFragment extends Fragment {
         }
     }
 
-    public class ConnectionAdapter extends ArrayAdapter<Connection> {
-        public ConnectionAdapter(Context context, List<Connection> connections) {
-            super(context, 0, connections);
-        }
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            // Get the data item for this position
-            Connection connection = getItem(position);
-            // Check if an existing view is being reused, otherwise inflate the view
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_connection, parent, false);
-            }
-
-            // Lookup view for data population
-            TextView tvFrom = (TextView) convertView.findViewById(R.id.tvFrom);
-            TextView tvTo = (TextView) convertView.findViewById(R.id.tvTo);
-            TextView tvDuration = (TextView) convertView.findViewById(R.id.tvDuration);
-            // Populate the data into the template view using the data object
-            tvFrom.setText(connection.getFrom().getStation().getName());
-            tvTo.setText(connection.getTo().getStation().getName());
-            tvDuration.setText(connection.getDuration());
-            // Return the completed view to render on screen
-            return convertView;
-        }
-
-    }
 
 }

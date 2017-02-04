@@ -1,4 +1,4 @@
-package brunner_giger.fahrplanapp;
+package brunner_giger.fahrplanapp.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import brunner_giger.fahrplanapp.R;
 import ch.schoeb.opendatatransport.IOpenTransportRepository;
 import ch.schoeb.opendatatransport.OpenDataTransportException;
 import ch.schoeb.opendatatransport.OpenTransportRepositoryFactory;

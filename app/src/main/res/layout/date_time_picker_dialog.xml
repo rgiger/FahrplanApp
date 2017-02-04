@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:text="Wann fahren Sie?"
+    android:textSize="20dp"
+    android:textColor="@android:color/white"
+    android:textAlignment="center"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    />
+    <DatePicker
+        android:id="@+id/date_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnersShown="true"
+        android:paddingStart="6dp"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"
+        android:splitMotionEvents="false"
+        style="@android:style/Widget.DeviceDefault.DatePicker" />
+
+    <TimePicker
+        android:id="@+id/time_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:headerBackground="?attr/actionModeSplitBackground"
+        android:timePickerMode="spinner" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp">
+
+    <ToggleButton
+        android:text="ToggleButton"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/toggleButtonAbfahrt"
+        android:checked="true"
+        android:background="@drawable/toggle_selector"
+        android:textOff="Abfahrt"
+        android:textOn="Abfahrt" />
+    <ToggleButton
+        android:text="ToggleButton"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/toggleButtonAnkunft"
+        android:checked="false"
+        android:background="@drawable/toggle_selector"
+        android:textOff="Ankunft"
+        android:textOn="Ankunft" />
+</LinearLayout>
+
+</LinearLayout>
