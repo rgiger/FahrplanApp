@@ -26,7 +26,7 @@ import java.util.List;
 import brunner_giger.fahrplanapp.Adapter.ConnectionAdapter;
 import brunner_giger.fahrplanapp.Adapter.StationAutoCompleteAdapter;
 import brunner_giger.fahrplanapp.Controls.DelayAutoCompleteTextView;
-import brunner_giger.fahrplanapp.Controls.DepartureArrivalTimePicker;
+import brunner_giger.fahrplanapp.Dialog.DepartureArrivalTimePicker;
 import brunner_giger.fahrplanapp.Model.ConnectionSearch;
 import ch.schoeb.opendatatransport.IOpenTransportRepository;
 import ch.schoeb.opendatatransport.OpenDataTransportException;
@@ -42,6 +42,8 @@ public class FahrplanFragment extends Fragment {
     private static final int THRESHOLD = 2;
     View FahrplanView = null;
     Calendar When = Calendar.getInstance();
+    SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
+    SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         if (container != null) {
@@ -61,8 +63,7 @@ public class FahrplanFragment extends Fragment {
     }
 
     private void UpdateWhenButton(Button btn) {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        btn.setText("Abfahrt " + sdf.format(When.getTime()) );
+        btn.setText("Abfahrt "+  sdfTime.format(When.getTime()) );
     }
 
     private void SetupListener() {
@@ -114,15 +115,15 @@ public class FahrplanFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoadTimePicker();
+                LoadDepartureArrivalTimePicker();
             }
         });
     }
 
-    private void LoadTimePicker() {
+    private void LoadDepartureArrivalTimePicker() {
         DialogFragment newFragment = new DepartureArrivalTimePicker();
         FragmentManager fragmentManager = getFragmentManager();
-        newFragment.show(fragmentManager, "timePicker");
+        newFragment.show(fragmentManager, "departureArrivalTimePicker");
     }
 
     private void ReverseConnection() {
@@ -185,7 +186,7 @@ public class FahrplanFragment extends Fragment {
 
             ConnectionList connectionList = null;
             try {
-                connectionList = repo.searchConnections(params[0].From, params[0].To);
+                connectionList = repo.searchConnections(params[0].From, params[0].To, "", sdfDate.format(When.getTime()), sdfDate.format(When.getTime()), false);
 
             } catch (OpenDataTransportException e) {
                 e.printStackTrace();

@@ -1,17 +1,19 @@
-package brunner_giger.fahrplanapp.Controls;
+package brunner_giger.fahrplanapp.Dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ToggleButton;
 
 
 import brunner_giger.fahrplanapp.R;
+
+import static brunner_giger.fahrplanapp.R.attr.colorPrimary;
 
 /**
  * Created by r.giger on 04.02.2017.
@@ -26,7 +28,6 @@ public class DepartureArrivalTimePicker
 
             View view = inflater.inflate(R.layout.date_time_picker_dialog, null);
             builder.setView(view)
-
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
@@ -38,8 +39,20 @@ public class DepartureArrivalTimePicker
                             DepartureArrivalTimePicker.this.getDialog().cancel();
                         }
                     });
+
+               /*   .setTitle("Wann fahren Sie?");*/
+
             SetupListener(view);
-            return builder.create();
+            final AlertDialog dialog = builder.create();
+            dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface arg0) {
+                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#3F51B5"));
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#3F51B5"));
+
+                }
+            });
+            return dialog;
         }
 
     private void SetupListener( View view) {

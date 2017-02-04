@@ -54,9 +54,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="40dp"
             android:layout_marginTop="0dp"
             android:visibility="gone"
+            android:indeterminateDrawable="@drawable/progress"
             />
 
 
@@ -91,9 +92,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="40dp"
             android:layout_marginTop="0dp"
             android:visibility="gone"
+            android:indeterminateDrawable="@drawable/progress"
             />
 
         <brunner_giger.fahrplanapp.Controls.DelayAutoCompleteTextView
@@ -143,6 +145,7 @@
             android:layout_below="@+id/flTime"
             android:textStyle="normal"
             android:textAllCaps="false"
+            android:textSize="18dp"
             android:textAlignment="textStart"
             android:background="@drawable/transparentbackground_withoutborder"/>
 
@@ -205,7 +208,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical|right"
             android:visibility="gone"
-            />
+            android:indeterminateDrawable="@drawable/progress" />
 
         <ListView
             android:layout_width="match_parent"
