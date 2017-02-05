@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,6 +15,40 @@
     android:paddingBottom="10dp"
     android:paddingTop="10dp"
     />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"><LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp">
+
+            <ToggleButton
+                android:text="ToggleButton"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/toggleButtonAbfahrt"
+                android:checked="true"
+                android:background="@drawable/toggle_selector"
+                android:textOff="Abfahrt"
+                android:textOn="Abfahrt" />
+            <ToggleButton
+                android:text="ToggleButton"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/toggleButtonAnkunft"
+                android:checked="false"
+                android:background="@drawable/toggle_selector"
+                android:textOff="Ankunft"
+                android:textOn="Ankunft" />
+        </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +65,9 @@
         android:paddingStart="6dp"
         android:datePickerMode="spinner"
         android:calendarViewShown="false"
-        android:splitMotionEvents="false" />
+        android:splitMotionEvents="false"
+        android:headerBackground="@color/colorPrimary"
+        android:yearListSelectorColor="@color/colorPrimary"/>
     <View
         android:id="@+id/divisorDateTime"
         android:layout_width="fill_parent"
@@ -49,34 +86,9 @@
         android:id="@+id/time_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:timePickerMode="spinner" />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp">
+        android:timePickerMode="spinner"
+        android:numbersSelectorColor="@color/colorPrimary" />
 
-    <ToggleButton
-        android:text="ToggleButton"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/toggleButtonAbfahrt"
-        android:checked="true"
-        android:background="@drawable/toggle_selector"
-        android:textOff="Abfahrt"
-        android:textOn="Abfahrt" />
-    <ToggleButton
-        android:text="ToggleButton"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/toggleButtonAnkunft"
-        android:checked="false"
-        android:background="@drawable/toggle_selector"
-        android:textOff="Ankunft"
-        android:textOn="Ankunft" />
-</LinearLayout>
-
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

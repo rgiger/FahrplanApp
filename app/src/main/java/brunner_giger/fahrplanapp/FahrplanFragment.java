@@ -28,6 +28,7 @@ import brunner_giger.fahrplanapp.Adapter.StationAutoCompleteAdapter;
 import brunner_giger.fahrplanapp.Controls.DelayAutoCompleteTextView;
 import brunner_giger.fahrplanapp.Dialog.DepartureArrivalTimePicker;
 import brunner_giger.fahrplanapp.Model.ConnectionSearch;
+import brunner_giger.fahrplanapp.Model.DepartureArrivalTime;
 import ch.schoeb.opendatatransport.IOpenTransportRepository;
 import ch.schoeb.opendatatransport.OpenDataTransportException;
 import ch.schoeb.opendatatransport.OpenTransportRepositoryFactory;
@@ -35,13 +36,11 @@ import ch.schoeb.opendatatransport.model.Connection;
 import ch.schoeb.opendatatransport.model.ConnectionList;
 import ch.schoeb.opendatatransport.model.Station;
 
-/**
- * Created by r.giger on 21.01.2017.
- */
 public class FahrplanFragment extends Fragment {
     private static final int THRESHOLD = 2;
     View FahrplanView = null;
-    Calendar When = Calendar.getInstance();
+    //Calendar When = Calendar.getInstance();
+    DepartureArrivalTime departurearrivaltime;
     SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
     SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
     @Override
@@ -57,13 +56,13 @@ public class FahrplanFragment extends Fragment {
 
     private void SetupWhenButton() {
         Button btn = (Button) FahrplanView.findViewById(R.id.btnSetWhen);
-        When = Calendar.getInstance();
+        departurearrivaltime = new DepartureArrivalTime(getActivity());
         UpdateWhenButton(btn);
 
     }
 
     private void UpdateWhenButton(Button btn) {
-        btn.setText("Abfahrt "+  sdfTime.format(When.getTime()) );
+        btn.setText(departurearrivaltime.toString());
     }
 
     private void SetupListener() {
@@ -120,9 +119,15 @@ public class FahrplanFragment extends Fragment {
         });
     }
 
+    public void updateDepartureArrivalTime(DepartureArrivalTime departureArrivalTime)
+    {
+
+    }
+
     private void LoadDepartureArrivalTimePicker() {
-        DialogFragment newFragment = new DepartureArrivalTimePicker();
+        DialogFragment newFragment = DepartureArrivalTimePicker.newInstance(departurearrivaltime);
         FragmentManager fragmentManager = getFragmentManager();
+
         newFragment.show(fragmentManager, "departureArrivalTimePicker");
     }
 
@@ -186,7 +191,7 @@ public class FahrplanFragment extends Fragment {
 
             ConnectionList connectionList = null;
             try {
-                connectionList = repo.searchConnections(params[0].From, params[0].To, "", sdfDate.format(When.getTime()), sdfDate.format(When.getTime()), false);
+                connectionList = repo.searchConnections(params[0].From, params[0].To, "", sdfDate.format(departurearrivaltime.When.getTime()), sdfTime.format(departurearrivaltime.When.getTime()), departurearrivaltime.isArrival);
 
             } catch (OpenDataTransportException e) {
                 e.printStackTrace();

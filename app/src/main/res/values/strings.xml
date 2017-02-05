@@ -7,4 +7,6 @@
     <string name="action_settings">Settings</string>
     <string name="cancel">Abbrechen</string>
     <string name="ok">OK</string>
+    <string name="Arrival">Ankunft</string>
+    <string name="Departure">Abfahrt</string>
 </resources>
