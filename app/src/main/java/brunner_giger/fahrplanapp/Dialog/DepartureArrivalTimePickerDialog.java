@@ -1,5 +1,6 @@
 package brunner_giger.fahrplanapp.Dialog;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -25,37 +26,55 @@ import brunner_giger.fahrplanapp.R;
 
 import static brunner_giger.fahrplanapp.R.attr.colorPrimary;
 
-public class DepartureArrivalTimePicker
+public class DepartureArrivalTimePickerDialog
       extends DialogFragment{
+
     DepartureArrivalTime _departureArrivalTime;
-    public static DepartureArrivalTimePicker newInstance(DepartureArrivalTime departureArrivalTime) {
-        DepartureArrivalTimePicker frag = new DepartureArrivalTimePicker();
+
+    public static DepartureArrivalTimePickerDialog newInstance(DepartureArrivalTime departureArrivalTime) {
+
+        DepartureArrivalTimePickerDialog frag = new DepartureArrivalTimePickerDialog();
         Bundle args = new Bundle();
         args.putSerializable("departurearrivaltime", departureArrivalTime);
         frag.setArguments(args);
         return frag;
     }
 
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             _departureArrivalTime = (DepartureArrivalTime) getArguments().getSerializable("departurearrivaltime");
 
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflater = getActivity().getLayoutInflater();
 
-            View view = inflater.inflate(R.layout.date_time_picker_dialog, null);
+            final View view = inflater.inflate(R.layout.date_time_picker_dialog, null);
             builder.setView(view)
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                           // _departureArrivalTime.isArrival =
-                          //  ((FahrplanFragment)getTargetFragment()).updateDepartureArrivalTime(_departureArrivalTime);
+                            ToggleButton tglArrival= (ToggleButton) view.findViewById(R.id.toggleButtonAnkunft);
+                            _departureArrivalTime.isArrival = tglArrival.isChecked();
+
+
+                            DatePicker datepicker= (DatePicker) view.findViewById(R.id.date_picker);
+                            TimePicker timepicker= (TimePicker) view.findViewById(R.id.time_picker);
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                _departureArrivalTime.When.set(datepicker.getYear(), datepicker.getMonth(), datepicker.getDayOfMonth(), timepicker.getHour(), timepicker.getMinute(), 0);
+                            }
+                            else
+                            {
+                                _departureArrivalTime.When.set(datepicker.getYear(), datepicker.getMonth(), datepicker.getDayOfMonth(), timepicker.getCurrentHour(), timepicker.getCurrentMinute(), 0);
+                            }
+
+                            ((FahrplanFragment)getTargetFragment()).updateDepartureArrivalTime(_departureArrivalTime);
                         }
                     })
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            DepartureArrivalTimePicker.this.getDialog().cancel();
+                            DepartureArrivalTimePickerDialog.this.getDialog().cancel();
                         }
                     });
 
