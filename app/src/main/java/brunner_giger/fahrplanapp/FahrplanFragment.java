@@ -3,6 +3,7 @@ package brunner_giger.fahrplanapp;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,7 +22,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import brunner_giger.fahrplanapp.Adapter.ConnectionAdapter;
@@ -83,7 +84,7 @@ public class FahrplanFragment extends Fragment {
         SetListenerForStationAutocomplete(R.id.txtFrom, R.id.pb_loading_indicatorFrom);
         SetListenerForStationAutocomplete(R.id.txtTo, R.id.pb_loading_indicatorTo);
 
-        ListView listConnection= (ListView) FahrplanView.findViewById(R.id.listConnections);
+        final ListView listConnection= (ListView) FahrplanView.findViewById(R.id.listConnections);
         listConnection.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -99,14 +100,38 @@ public class FahrplanFragment extends Fragment {
                     //load more content
                 }
             }
-       /* listConnection.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-                LoadDetail(v);
-            }});*/
-
     });
+
+        listConnection.setOnItemClickListener(new ListView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ConnectionAdapter adapter = (ConnectionAdapter)listConnection.getAdapter();
+                Connection connection = adapter.getItemAtPosition(position);
+
+                Context context = view.getContext();
+                Intent intent = new Intent(context, DetailsActivity.class);
+                SetConnectionToIntent(connection, intent);
+                intent.putExtra("connection", connection.toString());
+
+                context.startActivity(intent);
+
+
+            }
+        });
+    }
+
+    private void SetConnectionToIntent(Connection connection, Intent intent) {
+
+        intent.putExtra("From", connection.getFrom().getStation().getName());
+        intent.putExtra("To", connection.getTo().getStation().getName());
+        intent.putExtra("Duration", connection.getDuration().toString());
+        intent.putExtra("Transfers", connection.getTransfers().toString());
+        intent.putExtra("Cap2", connection.getCapacity2nd().toString());
+        intent.putExtra("Cap1", connection.getCapacity1st().toString());
+    }
+
+    private void SetDetailsFragment(Connection connection) {
+
     }
 
     private void AddWhenButtonListener() {
@@ -148,22 +173,13 @@ public class FahrplanFragment extends Fragment {
         txtTo.SetIndicatorActive(true);
     }
 
-/*    private void LoadDetail(View v) {
-        Bundle arguments = new Bundle();
-
-        DetailConnectionFragment fragment = null;
-        //FragmentManager fragmentManager = getFragmentManager();
-        fragment = new DetailConnectionFragment();
-        //fragmentManager.beginTransaction().replace(R.id.conent_holder, fragment).commit();
-    }*/
-
     private void SetListenerForStationAutocomplete(int autoCompleteTextView, int indicator) {
         final DelayAutoCompleteTextView stationName = (DelayAutoCompleteTextView) FahrplanView.findViewById(autoCompleteTextView);
         stationName.setThreshold(THRESHOLD);
         stationName.setAdapter(new StationAutoCompleteAdapter(FahrplanView.getContext()));
         stationName.setLoadingIndicator(
                 (android.widget.ProgressBar) FahrplanView.findViewById(indicator));
-        stationName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        stationName.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Station station = (Station) adapterView.getItemAtPosition(position);
