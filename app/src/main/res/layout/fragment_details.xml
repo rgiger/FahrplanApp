@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_details2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="brunner_giger.fahrplanapp.DetailsActivityFragment"
+    tools:showIn="@layout/activity_details">
+
+    <TextView
+        android:id="@+id/FromLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Von"
+        android:layout_marginTop="1dp"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvdTo"
+        android:layout_below="@+id/tvdFrom"
+        android:layout_alignStart="@+id/tvdFrom" />
+
+    <TextView
+        android:id="@+id/ToLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nach"
+        android:layout_above="@+id/tvdDuration"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvdCap2"
+        android:layout_below="@+id/tvdTransfers"
+        android:layout_alignStart="@+id/tvdTransfers" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvdCap1"
+        android:layout_below="@+id/tvdCap2"
+        android:layout_alignStart="@+id/tvdCap2" />
+
+    <TextView
+        android:text="Dauer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvdTo"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView5" />
+
+    <TextView
+        android:text="Transfers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvdDuration"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView6" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvdTransfers"
+        android:layout_below="@+id/tvdDuration"
+        android:layout_toEndOf="@+id/textView6"
+        android:layout_marginStart="31dp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvdDuration"
+        android:layout_below="@+id/tvdTo"
+        android:layout_alignStart="@+id/tvdTransfers" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvdFrom"
+        android:layout_alignBaseline="@+id/FromLabel"
+        android:layout_alignBottom="@+id/FromLabel"
+        android:layout_alignStart="@+id/tvdDuration" />
+
+    <TextView
+        android:text="Capacity 2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Capacity 1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView7"
+        android:layout_below="@+id/textView8"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>
