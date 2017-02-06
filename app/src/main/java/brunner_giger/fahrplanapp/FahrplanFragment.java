@@ -114,14 +114,13 @@ public class FahrplanFragment extends Fragment {
                 intent.putExtra("connection", connection.toString());
 
                 context.startActivity(intent);
-
-
             }
         });
     }
 
     private void SetConnectionToIntent(Connection connection, Intent intent) {
 
+        // in dieser Methode werden die anzuzeigenden Daten ins Intent Objekt der Activity geschrieben
         intent.putExtra("From", connection.getFrom().getStation().getName());
         intent.putExtra("To", connection.getTo().getStation().getName());
         intent.putExtra("Duration", connection.getDuration().toString());
