@@ -51,5 +51,7 @@ public class ConnectionAdapter extends ArrayAdapter<Connection> {
     }
 
 
-
+    public Connection getItemAtPosition(int position) {
+        return getItem(position);
+    }
 }
