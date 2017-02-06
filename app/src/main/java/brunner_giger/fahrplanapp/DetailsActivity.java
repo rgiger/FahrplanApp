@@ -6,18 +6,43 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import brunner_giger.fahrplanapp.Adapter.ConnectionAdapter;
+import brunner_giger.fahrplanapp.Adapter.ConnectionDetailsAdapter;
+import ch.schoeb.opendatatransport.model.Connection;
 
 public class DetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+/*
+        Bundle arguments = new Bundle();
+        DetailsActivityFragment fragment = new DetailsActivityFragment();
+        fragment.setArguments(arguments);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.listConnectionDetails, fragment)
+                .commit();
+
+/*
+        Connection connection = new Connection();
+        ConnectionDetailsAdapter adapter = new ConnectionDetailsAdapter(getApplicationContext(), connection);
+
+        ListView listConnectionDetails = (ListView) findViewById(R.id.listConnectionDetails);
+        //ListView listDetails = (ListView) DetailsActivity.findViewById(R.id.listConnectionDetails);
+        listConnectionDetails.setAdapter(adapter);
 
         /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -32,6 +57,7 @@ public class DetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
