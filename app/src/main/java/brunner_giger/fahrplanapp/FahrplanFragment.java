@@ -1,5 +1,6 @@
 package brunner_giger.fahrplanapp;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -32,6 +33,7 @@ import java.util.Date;
 import java.util.List;
 
 import brunner_giger.fahrplanapp.Adapter.ConnectionAdapter;
+import brunner_giger.fahrplanapp.Adapter.ConnectionDetailsAdapter;
 import brunner_giger.fahrplanapp.Adapter.StationAutoCompleteAdapter;
 import brunner_giger.fahrplanapp.Controls.DelayAutoCompleteTextView;
 import brunner_giger.fahrplanapp.Dialog.DepartureArrivalTimePickerDialog;
@@ -47,6 +49,7 @@ import ch.schoeb.opendatatransport.model.Station;
 public class FahrplanFragment extends Fragment {
     private static final int THRESHOLD = 2;
     View FahrplanView = null;
+
     //Calendar When = Calendar.getInstance();
     DepartureArrivalTime _departurearrivaltime;
     SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
@@ -141,22 +144,29 @@ public class FahrplanFragment extends Fragment {
                     }
                 }
             }
-    });
+        });
 
         listConnection.setOnItemClickListener(new ListView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 ConnectionAdapter adapter = (ConnectionAdapter)listConnection.getAdapter();
                 Connection connection = adapter.getItemAtPosition(position);
 
                 Context context = view.getContext();
                 Intent intent = new Intent(context, DetailsActivity.class);
-                SetConnectionToIntent(connection, intent);
-                intent.putExtra("connection", connection.toString());
 
+//                ConnectionDetailsAdapter connectionDetailsAdapter = new ConnectionDetailsAdapter(view.getContext(), connection);
+//                ListView listConnectionDetails = (ListView) view.findViewById(R.id.listConnectionDetails);
+//                listConnectionDetails.setAdapter(connectionDetailsAdapter);
+
+
+                SetConnectionToIntent(connection, intent);
                 context.startActivity(intent);
+
             }
         });
+
     }
 
     private void SetConnectionToIntent(Connection connection, Intent intent) {
@@ -164,14 +174,10 @@ public class FahrplanFragment extends Fragment {
         // in dieser Methode werden die anzuzeigenden Daten ins Intent Objekt der Activity geschrieben
         intent.putExtra("From", connection.getFrom().getStation().getName());
         intent.putExtra("To", connection.getTo().getStation().getName());
-        intent.putExtra("Duration", connection.getDuration().toString());
+        intent.putExtra("Duration", connection.getDuration());
         intent.putExtra("Transfers", connection.getTransfers().toString());
         intent.putExtra("Cap2", connection.getCapacity2nd().toString());
         intent.putExtra("Cap1", connection.getCapacity1st().toString());
-    }
-
-    private void SetDetailsFragment(Connection connection) {
-
     }
 
     private void AddWhenButtonListener() {

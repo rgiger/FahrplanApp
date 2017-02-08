@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import brunner_giger.fahrplanapp.Adapter.ConnectionDetailsAdapter;
+import ch.schoeb.opendatatransport.model.Connection;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -19,6 +23,10 @@ public class DetailsActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+//        Toast.makeText(this.getActivity(), "Das ist ein Toast", Toast.LENGTH_LONG).show();
+
 
         View view = inflater.inflate(R.layout.fragment_details, container, false);
 
