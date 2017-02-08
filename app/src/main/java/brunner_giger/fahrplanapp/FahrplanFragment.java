@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +39,7 @@ import brunner_giger.fahrplanapp.Adapter.ConnectionDetailsAdapter;
 import brunner_giger.fahrplanapp.Adapter.StationAutoCompleteAdapter;
 import brunner_giger.fahrplanapp.Controls.DelayAutoCompleteTextView;
 import brunner_giger.fahrplanapp.Dialog.DepartureArrivalTimePickerDialog;
+import brunner_giger.fahrplanapp.Model.ConnectionDetail;
 import brunner_giger.fahrplanapp.Model.ConnectionSearch;
 import brunner_giger.fahrplanapp.Model.DepartureArrivalTime;
 import ch.schoeb.opendatatransport.IOpenTransportRepository;
@@ -160,6 +163,10 @@ public class FahrplanFragment extends Fragment {
 //                ListView listConnectionDetails = (ListView) view.findViewById(R.id.listConnectionDetails);
 //                listConnectionDetails.setAdapter(connectionDetailsAdapter);
 
+                ConnectionDetail cd = new ConnectionDetail(connection);
+                Bundle b = new Bundle();
+                b.putSerializable("connections",cd.ConnectionSections);
+                intent.putExtra("bundle",  b);
 
                 SetConnectionToIntent(connection, intent);
                 context.startActivity(intent);
@@ -172,12 +179,6 @@ public class FahrplanFragment extends Fragment {
     private void SetConnectionToIntent(Connection connection, Intent intent) {
 
         // in dieser Methode werden die anzuzeigenden Daten ins Intent Objekt der Activity geschrieben
-        intent.putExtra("From", connection.getFrom().getStation().getName());
-        intent.putExtra("To", connection.getTo().getStation().getName());
-        intent.putExtra("Duration", connection.getDuration());
-        intent.putExtra("Transfers", connection.getTransfers().toString());
-        intent.putExtra("Cap2", connection.getCapacity2nd().toString());
-        intent.putExtra("Cap1", connection.getCapacity1st().toString());
     }
 
     private void AddWhenButtonListener() {
@@ -301,16 +302,19 @@ public class FahrplanFragment extends Fragment {
         @Override
         protected void onPostExecute(ConnectionList connectionList) {
             // Construct the data source
-            if(listOfConnections == null) {
-                listView = (ListView) FahrplanView.findViewById(R.id.listConnections);
-                listOfConnections = connectionList.getConnections();
-                ConnectionAdapter adapter = new ConnectionAdapter(getContext(), listOfConnections);
-                listView.setAdapter(adapter);
-            }
-            else
-            {
-                listOfConnections.addAll(connectionList.getConnections());
-                ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+            if(connectionList != null ) {
+                List<Connection> lconnections= connectionList.getConnections();
+                if(lconnections != null) {
+                    if (listOfConnections == null) {
+                        listView = (ListView) FahrplanView.findViewById(R.id.listConnections);
+                        listOfConnections = lconnections;
+                        ConnectionAdapter adapter = new ConnectionAdapter(getContext(), listOfConnections);
+                        listView.setAdapter(adapter);
+                    } else {
+                        listOfConnections.addAll(lconnections);
+                        ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+                    }
+                }
             }
 // Create the adapter to convert the array to views
 
