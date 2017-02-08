@@ -6,214 +6,242 @@
     android:id="@+id/content_fahrplan"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:paddingBottom="1dp"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="2dp"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="brunner_giger.fahrplanapp.MainActivity"
     tools:showIn="@layout/app_bar_main">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:backgroundTint="@android:color/background_light"
-    android:background="@drawable/transparentbackground_withoutborder"
-    android:id="@+id/rlSearchBox"
-    >
-    <FrameLayout
+
+    <RelativeLayout
+        android:id="@+id/rlSearchBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/flFrom"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_alignEnd="@+id/btnSearchConnection">
-        <brunner_giger.fahrplanapp.Controls.DelayAutoCompleteTextView
-            android:inputType="textCapSentences"
-            android:paddingRight="20dp"
+        android:background="@drawable/transparentbackground_withoutborder"
+        android:backgroundTint="@android:color/background_light">
+
+        <FrameLayout
+            android:id="@+id/flFrom"
             android:layout_width="match_parent"
-            android:background="@drawable/transparentbackground_withoutborder"
-            android:id="@+id/txtFrom"
-            android:layout_marginTop="15dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="false"
-            android:layout_alignParentRight="false"
-            android:singleLine="true"
-            style="@style/Widget.AppCompat.AutoCompleteTextView"
-            android:imeOptions="flagNoExtractUi|actionSearch"/>
-        <TextView
-            android:id="@+id/FromLabel"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Von"
-            android:layout_marginTop="1dp"/>
-        <ProgressBar
-            android:id="@+id/pb_loading_indicatorFrom"
-            style="?android:attr/progressBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="0dp"
-            android:visibility="gone"
-            android:indeterminateDrawable="@drawable/progress"
-            />
+            android:layout_alignEnd="@+id/btnSearchConnection"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <brunner_giger.fahrplanapp.Controls.DelayAutoCompleteTextView
+                android:id="@+id/txtFrom"
+                style="@style/Widget.AppCompat.AutoCompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="false"
+                android:layout_centerVertical="false"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/transparentbackground_withoutborder"
+                android:imeOptions="flagNoExtractUi|actionSearch"
+                android:inputType="textCapSentences"
+                android:paddingRight="20dp"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/FromLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="Von" />
+
+            <ProgressBar
+                android:id="@+id/pb_loading_indicatorFrom"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="0dp"
+                android:indeterminateDrawable="@drawable/progress"
+                android:visibility="gone" />
 
 
-    </FrameLayout>
-    <View
-        android:id="@+id/divisorFromTo"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#9f9f9f"
-        android:layout_below="@id/flFrom"/>
+        </FrameLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/flTo"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_below="@+id/divisorFromTo"
-        android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/btnSearchConnection">
+        <View
+            android:id="@+id/divisorFromTo"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/flFrom"
+            android:background="#9f9f9f" />
 
-        <TextView
-            android:id="@+id/ToLabel"
-            android:layout_width="wrap_content"
-            android:text="Nach"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="1dp"
-            android:layout_height="wrap_content" />
-        <ProgressBar
-            android:id="@+id/pb_loading_indicatorTo"
-            style="?android:attr/progressBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="0dp"
-            android:visibility="gone"
-            android:indeterminateDrawable="@drawable/progress"
-            />
-
-        <brunner_giger.fahrplanapp.Controls.DelayAutoCompleteTextView
-            android:inputType="textCapSentences"
-            android:paddingRight="20dp"
-            android:layout_marginTop="20dp"
+        <FrameLayout
+            android:id="@+id/flTo"
             android:layout_width="match_parent"
-            android:background="@drawable/transparentbackground_withoutborder"
-            android:id="@+id/txtTo"
-            android:layout_height="40dp"
-            style="@style/Widget.AppCompat.AutoCompleteTextView"
-            android:imeOptions="flagNoExtractUi|actionSearch"/>
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/btnSearchConnection"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/divisorFromTo"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/ToLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="1dp"
+                android:text="Nach" />
+
+            <ProgressBar
+                android:id="@+id/pb_loading_indicatorTo"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="0dp"
+                android:indeterminateDrawable="@drawable/progress"
+                android:visibility="gone" />
+
+            <brunner_giger.fahrplanapp.Controls.DelayAutoCompleteTextView
+                android:id="@+id/txtTo"
+                style="@style/Widget.AppCompat.AutoCompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/transparentbackground_withoutborder"
+                android:imeOptions="flagNoExtractUi|actionSearch"
+                android:inputType="textCapSentences"
+                android:paddingRight="20dp" />
 
 
-    </FrameLayout>
-    <View
-        android:id="@+id/divisorToTime"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#9f9f9f"
-        android:layout_below="@id/flTo"/>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/flTime"
-        android:layout_marginTop="1dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_below="@+id/divisorToTime"
-        android:layout_alignParentStart="true">
+        </FrameLayout>
 
-        <TextView
-            android:id="@+id/WhenLabel"
-            android:layout_width="wrap_content"
-            android:text="Abfahrt"
+        <View
+            android:id="@+id/divisorToTime"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/flTo"
+            android:background="#9f9f9f" />
+
+        <FrameLayout
+            android:id="@+id/flTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/divisorToTime"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="1dp">
+
+            <TextView
+                android:id="@+id/WhenLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="0dp"
+                android:text="Abfahrt" />
+
+            <Button
+                android:id="@+id/btnSetWhen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/flTime"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/transparentbackground_withoutborder"
+                android:text="Abfahrt"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="18dp"
+                android:textStyle="normal" />
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/divisorBelowTime"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/flTime"
+            android:background="#9f9f9f" />
 
         <Button
+            android:id="@+id/btnSearchConnection"
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
             android:layout_height="wrap_content"
-            android:text="Abfahrt"
-            android:id="@+id/btnSetWhen"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/flTime"
-            android:textStyle="normal"
-            android:textAllCaps="false"
-            android:textSize="18dp"
-            android:textAlignment="textStart"
-            android:background="@drawable/transparentbackground_withoutborder"/>
+            android:layout_below="@+id/divisorBelowTime"
+            android:background="@drawable/transparentbackground_withoutborder"
+            android:paddingLeft="75dp"
+            android:paddingRight="75dp"
+            android:text="Verbindung suchen" />
 
-    </FrameLayout>
-    <View
-        android:id="@+id/divisorBelowTime"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#9f9f9f"
-        android:layout_below="@id/flTime"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Verbindung suchen"
-        android:id="@+id/btnSearchConnection"
-        android:layout_alignParentLeft="true"
-        android:paddingLeft="75dp"
-        android:paddingRight="75dp"
-        android:layout_below="@+id/divisorBelowTime"
-        android:background="@drawable/transparentbackground_withoutborder"/>
-    <View
-        android:id="@+id/divisorBelowSearch"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#9f9f9f"
-        android:layout_below="@id/btnSearchConnection"/>
+        <View
+            android:id="@+id/divisorBelowSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/btnSearchConnection"
+            android:background="#9f9f9f" />
 
 
+        <ImageButton
+            android:id="@+id/btnReverseConnection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/flTime"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="33dp"
+            android:background="@drawable/round_imagebutton"
+            android:padding="12dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_cached_black_24dp" />
 
-    <ImageButton
+
+        <!-- android:background="@drawable/edittext_border"-->
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/round_imagebutton"
-        android:padding="12dp"
-        android:src="@drawable/ic_cached_black_24dp"
-        android:id="@+id/btnReverseConnection"
-        android:scaleType="fitCenter"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/flTime"
-        android:layout_marginTop="33dp" />
-
-
-    <!-- android:background="@drawable/edittext_border"-->
-</RelativeLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/flVerbindungen"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/rlSearchBox">
 
-        <ProgressBar
-            android:id="@+id/pb_loading_indicatorListConnections"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical|right"
-            android:visibility="gone"
-            android:indeterminateDrawable="@drawable/progress" />
 
-        <ListView
+
+        <FrameLayout
+            android:id="@+id/flVerbindungen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/listConnections"
-            android:layout_below="@+id/btnSearchConnection"/>
-    </FrameLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true">
+
+            <ProgressBar
+                android:id="@+id/pb_loading_indicatorListConnections"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|right"
+                android:indeterminateDrawable="@drawable/progress"
+                android:visibility="gone" />
+
+            <ListView
+                android:id="@+id/listConnections"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/btnSearchConnection"
+                android:scrollbars="none"/>
+        </FrameLayout>
+        <RelativeLayout
+            android:id="@+id/rlDateTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:id="@+id/tvDateTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Departure Date"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

@@ -15,13 +15,20 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import brunner_giger.fahrplanapp.Adapter.ConnectionAdapter;
@@ -44,12 +51,18 @@ public class FahrplanFragment extends Fragment {
     DepartureArrivalTime _departurearrivaltime;
     SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
     SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
+    DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    TextView tvDateTop;
+    RelativeLayout rlDateTop;
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         if (container != null) {
             container.removeAllViews();
         }
         FahrplanView =  inflater.inflate(R.layout.content_fahrplan, container, false);
+        tvDateTop = (TextView) FahrplanView.findViewById(R.id.tvDateTop);
+        rlDateTop = (RelativeLayout) FahrplanView.findViewById(R.id.rlDateTop);
+        rlDateTop.setVisibility(View.GONE);
         SetupListener();
         SetupWhenButton();
         return FahrplanView;
@@ -61,16 +74,17 @@ public class FahrplanFragment extends Fragment {
         UpdateWhenButton(btn);
 
     }
-
+    int firstVisibleInList = 0;
+    int VerbindungsCounter = 4;
     private void UpdateWhenButton(Button btn) {
         btn.setText(_departurearrivaltime.toString());
     }
-
     private void SetupListener() {
         Button btn = (Button) FahrplanView.findViewById(R.id.btnSearchConnection);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                VerbindungsCounter = 4;
                 LoadConnections();
             }
         });
@@ -91,13 +105,40 @@ public class FahrplanFragment extends Fragment {
 
             }
 
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
-                //Check if the last view is visible
-                if (++firstVisibleItem + visibleItemCount > totalItemCount) {
-
-                    //load more content
+                if(totalItemCount > 0) {
+                  if (firstVisibleInList != firstVisibleItem) {
+                        firstVisibleInList = firstVisibleItem;
+                        try {
+                            View v = view.getChildAt(firstVisibleItem);
+                          //  RelativeLayout rl = (RelativeLayout)v.findViewById(R.id.rlDate);
+                            int i = 0;
+                            if(firstVisibleItem-1 > 0)
+                            {
+                                i = firstVisibleItem-1;
+                           //     rl.setVisibility(View.VISIBLE);
+                            }
+                            else
+                            {
+                           //     rl.setVisibility(View.GONE);
+                            }
+                            Connection c = listOfConnections.get(i);
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTime(inputFormat.parse(c.getTo().getArrival()));
+                            tvDateTop.setText(sdfDate.format(cal.getTime()));
+                            rlDateTop.setVisibility(View.VISIBLE);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    //Check if the last view is visible
+                    if (++firstVisibleItem + visibleItemCount > totalItemCount && totalItemCount >= VerbindungsCounter) {
+                        VerbindungsCounter = VerbindungsCounter + 4;
+                        LoadLaterConnections();
+                    }
                 }
             }
     });
@@ -187,22 +228,49 @@ public class FahrplanFragment extends Fragment {
         });
     }
 
+    ConnectionSearch CS;
     private void LoadConnections() {
-
+        listOfConnections = null;
         EditText txtFrom = (EditText) FahrplanView.findViewById(R.id.txtFrom);
         EditText txtTo = (EditText) FahrplanView.findViewById(R.id.txtTo);
-
         ProgressBar pb = (android.widget.ProgressBar) FahrplanView.findViewById(R.id.pb_loading_indicatorListConnections);
         pb.setVisibility(View.VISIBLE);
-        ConnectionSearch cs = new ConnectionSearch(txtFrom.getText().toString(),txtTo.getText().toString());
-        new LoaderTask().execute(cs);
+        CS = new ConnectionSearch(txtFrom.getText().toString(),txtTo.getText().toString(), sdfDate.format(_departurearrivaltime.When.getTime()), sdfTime.format(_departurearrivaltime.When.getTime()), _departurearrivaltime.isArrival);
+        new LoaderTask().execute(CS);
+    }
+
+    private void LoadLaterConnections() {
+        if (CS != null && listOfConnections != null && listOfConnections.size() >= 4) {
+           ProgressBar pb = (android.widget.ProgressBar) FahrplanView.findViewById(R.id.pb_loading_indicatorListConnections);
+           pb.setVisibility(View.VISIBLE);
+            try {
+                Calendar calendar  =  Calendar.getInstance();
+                if(CS.isArrival) {
+                    calendar.setTime(inputFormat.parse(listOfConnections.get(listOfConnections.size() - 1).getTo().getArrival()));
+                    calendar.add(Calendar.SECOND, 1);
+                }
+                else
+                {
+                    calendar.setTime(inputFormat.parse(listOfConnections.get(listOfConnections.size() - 1).getTo().getArrival()));
+                    calendar.add(Calendar.SECOND, 1);
+                }
+                CS.Date = sdfDate.format(calendar.getTime());
+                CS.Time = sdfTime.format(calendar.getTime());
+                new LoaderTask().execute(CS);
+            } catch (Exception e) {
+                e.printStackTrace();
+                pb.setVisibility(View.GONE);
+                //TODO Fehlerhandling}
+            }
+        }
     }
 
 
-    //TODO In Service auslagern
+    List<Connection> listOfConnections;
+    ListView listView;
+
+    //TODO In (Service) auslagern
     private class LoaderTask extends AsyncTask<ConnectionSearch, Void, ConnectionList> {
-
-
         @Override
         protected ConnectionList doInBackground(ConnectionSearch... params) {
             // Get Repository
@@ -210,7 +278,7 @@ public class FahrplanFragment extends Fragment {
 
             ConnectionList connectionList = null;
             try {
-                connectionList = repo.searchConnections(params[0].From, params[0].To, "", sdfDate.format(_departurearrivaltime.When.getTime()), sdfTime.format(_departurearrivaltime.When.getTime()), _departurearrivaltime.isArrival);
+                connectionList = repo.searchConnections(params[0].From, params[0].To, "", params[0].Date, params[0].Time,  params[0].isArrival);
 
             } catch (OpenDataTransportException e) {
                 e.printStackTrace();
@@ -224,19 +292,26 @@ public class FahrplanFragment extends Fragment {
         protected void onPreExecute() {
 
         }
-
         @Override
         protected void onPostExecute(ConnectionList connectionList) {
             // Construct the data source
-            List<Connection> listOfConnections =connectionList.getConnections();
+            if(listOfConnections == null) {
+                listView = (ListView) FahrplanView.findViewById(R.id.listConnections);
+                listOfConnections = connectionList.getConnections();
+                ConnectionAdapter adapter = new ConnectionAdapter(getContext(), listOfConnections);
+                listView.setAdapter(adapter);
+            }
+            else
+            {
+                listOfConnections.addAll(connectionList.getConnections());
+                ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+            }
 // Create the adapter to convert the array to views
-            ConnectionAdapter adapter = new ConnectionAdapter(getContext(), listOfConnections);
-// Attach the adapter to a ListView
 
+// Attach the adapter to a ListView
             ProgressBar pb = (android.widget.ProgressBar) FahrplanView.findViewById(R.id.pb_loading_indicatorListConnections);
             pb.setVisibility(View.GONE);
-            ListView listView = (ListView) FahrplanView.findViewById(R.id.listConnections);
-            listView.setAdapter(adapter);
+
 
             // Hide the Keyboard
             Context mContext = getContext();
