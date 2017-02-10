@@ -8,9 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="brunner_giger.fahrplanapp.DetailsActivityFragment"
-    ><!--tools:showIn="@layout/activity_details">-->
-
+    tools:context="brunner_giger.fahrplanapp.DetailsActivityFragment">
 
     <ListView
         android:layout_width="match_parent"
@@ -25,106 +23,9 @@
         android:id="@+id/rlConnectionDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/darkgrey"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
-
-        <TextView
-            android:id="@+id/FromLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Von"
-            android:layout_marginTop="1dp"/>
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvdFrom"
-            android:layout_alignBaseline="@+id/FromLabel"
-            android:layout_alignBottom="@+id/FromLabel"
-            android:layout_alignStart="@+id/tvdDuration" />
-
-        <TextView
-            android:id="@+id/ToLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nach"
-            android:layout_above="@+id/tvdDuration"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvdTo"
-            android:layout_below="@+id/tvdFrom"
-            android:layout_alignStart="@+id/tvdFrom" />
-
-        <TextView
-            android:text="Dauer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvdTo"
-            android:layout_alignParentStart="true"
-            android:id="@+id/textView5" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvdDuration"
-            android:layout_below="@+id/tvdTo"
-            android:layout_alignStart="@+id/tvdProducts" />
-
-        <TextView
-            android:text="Verkehrsmittel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvdDuration"
-            android:layout_alignParentStart="true"
-            android:id="@+id/textView6" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvdProducts"
-            android:layout_below="@+id/tvdDuration"
-            android:layout_toEndOf="@+id/textView6"
-            android:layout_marginStart="31dp" />
-
-        <!--
-                <TextView
-                    android:text="Capacity 1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView7"
-                    android:layout_below="@+id/textView8"
-
-                <TextView
-                    android:text="TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvdCap1"
-                    android:layout_below="@+id/tvdCap2"
-                    android:layout_alignStart="@+id/tvdCap2" />
-
-                <TextView
-                    android:text="Capacity 2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView8"
-                    android:layout_below="@+id/textView6"
-                    android:layout_alignParentStart="true" />
-
-                <TextView
-                    android:text="TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvdCap2"
-                    android:layout_below="@+id/tvdProducts"
-                    android:layout_alignStart="@+id/tvdProducts" />
-        -->
 
         <RelativeLayout
             android:id="@+id/rlSection"
@@ -145,30 +46,88 @@
         </RelativeLayout>
 
         <TextView
-            android:text="TextView"
+            android:text="From"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvdArrTimeAll"
-            android:layout_below="@+id/tvdDepTimeAll"
-            android:layout_alignStart="@+id/tvdDepTimeAll" />
+            android:id="@+id/tvdFrom"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="18dp"
+
+            android:layout_marginTop="2dp" />
 
         <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvdDate"
-            android:layout_below="@+id/tvdArrTimeAll"
-            android:layout_alignStart="@+id/tvdArrTimeAll" />
-
-        <TextView
-            android:text="TextView"
+            android:text="DepTime"
+            android:textSize="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvdDepTimeAll"
-            android:layout_alignBaseline="@+id/tvdFrom"
-            android:layout_alignBottom="@+id/tvdFrom"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/tvdFrom"
+            android:layout_alignStart="@+id/tvdFrom" />
+
+        <TextView
+            android:text="Products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdProducts"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/tvdDuration"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="-3dp" />
+
+        <TextView
+            android:text="Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdDate"
+            android:textColor="@android:color/white"
+            android:layout_above="@+id/tvdProducts"
+            android:layout_toEndOf="@+id/tvdDepTimeAll"
+            android:layout_marginStart="48dp" />
+
+        <View
+            android:id="@+id/Line"
+            android:background="@android:color/white"
+            android:layout_alignTop="@+id/tvdArrTimeAll"
+            android:layout_centerHorizontal="true"
+            android:layout_width="200dp"
+            android:layout_height="2dp" />
+
+        <TextView
+            android:text="To"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdTo"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:layout_above="@+id/tvdDepTimeAll"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="56dp" />
+            android:layout_marginEnd="11dp"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:text="ArrTime"
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdArrTimeAll"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/tvdTo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:text="Duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdDuration"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/tvdArrTimeAll"
+            android:layout_alignEnd="@+id/Line"
+            android:layout_marginEnd="10dp" />
 
     </RelativeLayout>
 

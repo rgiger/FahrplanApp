@@ -86,10 +86,8 @@ public class ConnectionSectionAdapter extends ArrayAdapter<ConnectionSection>  {
                 imCap2.setImageResource(android.R.color.transparent);
         }
 
-        ((TextView) convertView.findViewById(R.id.tvdetCap1)).setText(connectionSection.Capacity1st);
-        ((TextView) convertView.findViewById(R.id.tvdetCap2)).setText(connectionSection.Capacity2nd);
         ((TextView) convertView.findViewById(R.id.tvdetName)).setText(connectionSection.Name);
-        ((TextView) convertView.findViewById(R.id.tvdetEndTo)).setText(connectionSection.ToEnd);
+        ((TextView) convertView.findViewById(R.id.tvdetEndTo)).setText(connectionSection.To);
 //        ((TextView) convertView.findViewById(R.id.tvdetCatCode)).setText(connectionSection.CategoryCode);
 
         // Return the completed view to render on screen
