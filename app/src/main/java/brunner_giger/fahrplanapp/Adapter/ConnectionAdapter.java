@@ -26,9 +26,9 @@ public class ConnectionAdapter extends ArrayAdapter<Connection> {
     public ConnectionAdapter(Context context, List<Connection> connections) {
         super(context, 0, connections);
     }
-    SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
-    SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
-    DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    private SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
+    private SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
+    private DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -79,6 +79,7 @@ public class ConnectionAdapter extends ArrayAdapter<Connection> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         tvDuration.setText(connection.getDuration());
         tvDepartureDate.setText(sdfDate.format(departure.getTime()));
         tvDepartureTime.setText(sdfTime.format(departure.getTime()));

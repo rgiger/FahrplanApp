@@ -1,6 +1,5 @@
 package brunner_giger.fahrplanapp;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,13 +27,10 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import brunner_giger.fahrplanapp.Adapter.ConnectionAdapter;
-import brunner_giger.fahrplanapp.Adapter.ConnectionDetailsAdapter;
 import brunner_giger.fahrplanapp.Adapter.StationAutoCompleteAdapter;
 import brunner_giger.fahrplanapp.Controls.DelayAutoCompleteTextView;
 import brunner_giger.fahrplanapp.Dialog.DepartureArrivalTimePickerDialog;
@@ -159,26 +154,15 @@ public class FahrplanFragment extends Fragment {
                 Context context = view.getContext();
                 Intent intent = new Intent(context, DetailsActivity.class);
 
-//                ConnectionDetailsAdapter connectionDetailsAdapter = new ConnectionDetailsAdapter(view.getContext(), connection);
-//                ListView listConnectionDetails = (ListView) view.findViewById(R.id.listConnectionDetails);
-//                listConnectionDetails.setAdapter(connectionDetailsAdapter);
-
                 ConnectionDetail cd = new ConnectionDetail(connection);
                 Bundle b = new Bundle();
                 b.putSerializable("connections",cd.ConnectionSections);
                 intent.putExtra("bundle",  b);
-
-                SetConnectionToIntent(connection, intent);
                 context.startActivity(intent);
 
             }
         });
 
-    }
-
-    private void SetConnectionToIntent(Connection connection, Intent intent) {
-
-        // in dieser Methode werden die anzuzeigenden Daten ins Intent Objekt der Activity geschrieben
     }
 
     private void AddWhenButtonListener() {

@@ -1,109 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/content_details2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/FromLabel"
+            android:id="@+id/lbFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Von"
+            android:text="Von/Nach"
             android:layout_marginTop="1dp"/>
 
         <TextView
-            android:text="TextView"
+            android:text="Plattform"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvdTo"
-            android:layout_below="@+id/tvdFrom"
-            android:layout_alignStart="@+id/tvdFrom" />
-
-        <TextView
-            android:id="@+id/ToLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nach"
-            android:layout_above="@+id/tvdDuration"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvdCap2"
-            android:layout_below="@+id/tvdTransfers"
-            android:layout_alignStart="@+id/tvdTransfers" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvdCap1"
-            android:layout_below="@+id/tvdCap2"
-            android:layout_alignStart="@+id/tvdCap2" />
-
-        <TextView
-            android:text="Dauer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvdTo"
+            android:layout_below="@+id/tvdetDeparture"
             android:layout_alignParentStart="true"
-            android:id="@+id/textView5" />
+            android:id="@+id/lbPlatfDep" />
 
         <TextView
-            android:text="Transfers"
+            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvdDuration"
+            android:id="@+id/tvdetDeparture"
+            android:layout_alignBaseline="@+id/lbFrom"
+            android:layout_alignBottom="@+id/lbFrom"
+            android:layout_toEndOf="@+id/lbPlatfDep"
+            android:layout_marginStart="34dp"/>
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvdetDeparture"
+            android:layout_alignStart="@+id/tvdetDeparture"
+            android:id="@+id/tvdetPatfDep" />
+
+        <TextView
+            android:text="Prognose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbPlatfDep"
             android:layout_alignParentStart="true"
-            android:id="@+id/textView6" />
+            android:id="@+id/textView8" />
 
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvdTransfers"
-            android:layout_below="@+id/tvdDuration"
-            android:layout_toEndOf="@+id/textView6"
-            android:layout_marginStart="31dp" />
+            android:layout_below="@+id/tvdetPatfDep"
+            android:layout_alignStart="@+id/tvdetPatfDep"
+            android:id="@+id/tvdetProgDep" />
 
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvdDuration"
-            android:layout_below="@+id/tvdTo"
-            android:layout_alignStart="@+id/tvdTransfers" />
+            android:id="@+id/tvdetArrival"
+            android:layout_alignStart="@+id/tvdetPlatfArr" />
 
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvdetFrom"
-            android:layout_alignBaseline="@+id/FromLabel"
-            android:layout_alignBottom="@+id/FromLabel"
-            android:layout_alignStart="@+id/tvdDuration" />
+            android:id="@+id/tvdetPlatfArr"
+            android:layout_marginStart="43dp"
+            android:layout_below="@+id/tvdetArrival"
+            android:layout_toEndOf="@+id/tvdetPatfDep" />
 
         <TextView
-            android:text="Capacity 2"
+            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView8"
-            android:layout_below="@+id/textView6"
-            android:layout_alignParentStart="true" />
+            android:layout_alignBottom="@+id/tvdetProgDep"
+            android:layout_alignStart="@+id/tvdetPlatfArr"
+            android:id="@+id/tvdetProgArr" />
+
+        <View
+            android:id="@+id/divisorToTime"
+            android:layout_width="350dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="2dp"
+            android:layout_below="@id/tvdetProgArr"
+            android:background="?attr/colorControlHighlight"
+            android:layout_marginTop="10dp" />
 
         <TextView
-            android:text="Capacity 1"
+            android:text="Erste Klasse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView7"
+            android:layout_marginTop="19dp"
+            android:id="@+id/textView11"
             android:layout_below="@+id/textView8"
             android:layout_alignParentStart="true" />
+
+        <TextView
+            android:text="Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView11"
+            android:layout_alignEnd="@+id/textView8"
+            android:id="@+id/textView16"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdetName"
+            android:layout_below="@+id/textView11"
+            android:layout_toStartOf="@+id/tvdetProgArr" />
+
+        <TextView
+            android:text="Zweite Klasse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView13"
+            android:layout_above="@+id/tvdetName"
+            android:layout_toEndOf="@+id/tvdetName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdetCap1"
+            android:width="10dp"
+            android:text="0"
+            android:layout_above="@+id/tvdetName"
+            android:layout_alignStart="@+id/tvdetProgDep" />
+
+        <TextView
+            android:text="Endstation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView20"
+            android:layout_below="@+id/textView16"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdetEndTo"
+            android:layout_below="@+id/tvdetName"
+            android:layout_alignStart="@+id/tvdetName" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdetArrTime"
+            android:layout_below="@+id/tvdetDepTime"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdetDepTime"
+            android:layout_below="@+id/textView20"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdetCap2"
+            android:width="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_alignBaseline="@+id/textView13"
+            android:layout_alignBottom="@+id/textView13"
+            android:layout_toEndOf="@+id/textView13" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/cap_1"
+            android:id="@+id/imCap2"
+            android:layout_alignBottom="@+id/tvdetCap2"
+            android:layout_toStartOf="@+id/textView13"
+            android:layout_alignEnd="@+id/divisorToTime"
+            android:contentDescription="capacity 2nd class" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/cap_1"
+            android:id="@+id/imCap1"
+            android:layout_above="@+id/tvdetName"
+            android:layout_toEndOf="@+id/tvdetProgDep"
+            android:contentDescription="capacity 1st class" />
+
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>
