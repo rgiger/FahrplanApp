@@ -1,9 +1,5 @@
 package brunner_giger.fahrplanapp;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,9 +17,6 @@ import java.util.Calendar;
 import brunner_giger.fahrplanapp.Adapter.ConnectionSectionAdapter;
 import brunner_giger.fahrplanapp.Model.ConnectionSection;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class DetailsActivityFragment extends Fragment {
 
     public DetailsActivityFragment() {

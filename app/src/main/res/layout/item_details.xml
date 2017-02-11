@@ -10,7 +10,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rlTime">
+        android:id="@+id/rlTime"
+        android:paddingLeft="10dp">
 
         <View
             android:id="@+id/vSplit"
@@ -119,7 +120,7 @@
             android:scaleX="1.5"
             android:scaleY="1.5"
             android:layout_alignBottom="@+id/textView11"
-            android:layout_marginBottom="2dp"
+            android:layout_marginBottom="3dp"
             android:layout_toStartOf="@+id/textView13"
             android:layout_marginRight="10dp" />
 
@@ -152,7 +153,7 @@
             android:scaleY="1.5"
             android:layout_alignBottom="@+id/textView13"
             android:layout_alignEnd="@+id/tvdetPatfDep"
-            android:layout_marginBottom="2dp" />
+            android:layout_marginBottom="3dp" />
 
         <TextView
             android:text="EndTo"

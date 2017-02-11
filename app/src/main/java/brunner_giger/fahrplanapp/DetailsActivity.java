@@ -12,9 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.MapFragment;
 
 import java.util.ArrayList;
 
@@ -69,6 +67,16 @@ public class DetailsActivity extends AppCompatActivity {
                     b.putSerializable("connections", ConnectionSections);
                     intent.putExtra("bundle", b);
                     context.startActivity(intent);
+
+
+                    // TODO: 11.02.2017 Hiermit wird eine einfache Map angezeigt dafür in der Activity mit entsprechender Toolbar
+                    Fragment fragment = null;
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragment = new MapFragment();
+                    fragment.setArguments(b);
+                    // wenn dies auskommentiert wird, wird die Map angezeigt
+//                    fragmentManager.beginTransaction().replace(R.id.fragment, fragment).commit();
+
                 }
             });
         }
