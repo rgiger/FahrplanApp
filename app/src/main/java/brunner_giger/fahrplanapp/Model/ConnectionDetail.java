@@ -30,14 +30,21 @@ public class ConnectionDetail implements Serializable {
 
             try {
                 cs.From = c.getFrom().getStation().getName();
+                cs.From_Latitude = c.getFrom().getLocation().getCoordinate().getX().toString();
+                cs.From_Longitude = c.getFrom().getLocation().getCoordinate().getY().toString();
                 cs.StartTime = c.getFrom().getDeparture();
+
                 cs.ToEnd = c.getTo().getStation().getName();
+                cs.ToEnd_Latitude = c.getTo().getLocation().getCoordinate().getX().toString();
+                cs.ToEnd_Longitude = c.getTo().getLocation().getCoordinate().getY().toString();
                 cs.EndTime = c.getTo().getArrival();
                 cs.Duration = c.getDuration();
                 cs.Products = c.getProducts().toString();
 
                 cs.DepartureTime = s.getDeparture().getDeparture();
                 cs.Departure = s.getDeparture().getStation().getName();
+                cs.Dep_Latitude = s.getDeparture().getLocation().getCoordinate().getX().toString();
+                cs.Dep_Longitude = s.getDeparture().getLocation().getCoordinate().getY().toString();
                 cs.DeparturePlatform = s.getDeparture().getPlatform();
                 cs.DeparturePrognosis = s.getDeparture().getPrognosis().getDeparture();
 

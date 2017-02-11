@@ -9,8 +9,12 @@ public class ConnectionSection implements Serializable{
 
     // Overall information
     public String From;
+    public String From_Latitude;
+    public String From_Longitude;
     public String StartTime;
     public String ToEnd;
+    public String ToEnd_Latitude;
+    public String ToEnd_Longitude;
     public String EndTime;
     public String Duration;
     public String Products;
@@ -18,6 +22,8 @@ public class ConnectionSection implements Serializable{
     // Departure
     public String DepartureTime;
     public String Departure;
+    public String Dep_Latitude;
+    public String Dep_Longitude;
     public String DeparturePlatform;
     public String DeparturePrognosis;
 

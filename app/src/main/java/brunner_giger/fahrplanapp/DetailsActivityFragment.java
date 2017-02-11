@@ -1,5 +1,9 @@
 package brunner_giger.fahrplanapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -34,7 +38,7 @@ public class DetailsActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_details, container, false);
-        ArrayList<ConnectionSection> ConnectionSections = (ArrayList<ConnectionSection>)( this.getActivity().getIntent().getBundleExtra("bundle").getSerializable("connections"));
+        final ArrayList<ConnectionSection> ConnectionSections = (ArrayList<ConnectionSection>)( this.getActivity().getIntent().getBundleExtra("bundle").getSerializable("connections"));
 
         Calendar departure = Calendar.getInstance();
         Calendar arrival = Calendar.getInstance();

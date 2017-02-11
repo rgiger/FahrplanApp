@@ -10,4 +10,5 @@
     <string name="Arrival">Ankunft</string>
     <string name="Departure">Abfahrt</string>
     <string name="title_activity_details">DetailsActivity</string>
+    <string name="title_activity_map">Map</string>
 </resources>
