@@ -7,6 +7,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import brunner_giger.fahrplanapp.Model.ConnectionSection;
@@ -56,19 +57,25 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         double dx = Double.valueOf(ConnectionSections.get(0).From_Latitude);
         double dy = Double.valueOf(ConnectionSections.get(0).From_Longitude);
         city = ConnectionSections.get(0).From;
-        LatLng pos = new LatLng(dx, dy);
+        LatLng posF = new LatLng(dx, dy);
         // this marker has not to be set !
 //        mMap.addMarker(new MarkerOptions().position(pos).title(city));
 
         double tx = Double.valueOf(ConnectionSections.get(0).ToEnd_Latitude);
         double ty = Double.valueOf(ConnectionSections.get(0).ToEnd_Longitude);
         city = ConnectionSections.get(0).ToEnd;
-        pos = new LatLng(tx, ty);
-        mMap.addMarker(new MarkerOptions().position(pos).title(city));
+        LatLng posT = new LatLng(tx, ty);
+        mMap.addMarker(new MarkerOptions().position(posT).title(city));
 
         LatLng posDelta = new LatLng((double) Math.abs((dx+tx)/2), (double)Math.abs((dy+ty)/2));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(posDelta));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo((float) 8.0));
+
+        // Define the most S/W and N/E coordinates
+        LatLng posSW = new LatLng(Math.min(posF.latitude, posT.latitude), Math.min(posF.longitude, posT.longitude));
+        LatLng posNE = new LatLng(Math.max(posF.latitude, posT.latitude), Math.max(posF.longitude, posT.longitude));
+
+        LatLngBounds llb = new LatLngBounds(posSW, posNE);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(llb,200));
 
     }
 }
