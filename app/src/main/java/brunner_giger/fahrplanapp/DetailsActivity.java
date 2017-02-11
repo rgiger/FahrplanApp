@@ -26,7 +26,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Streckendetails");
+        toolbar.setTitle(R.string.ConnectionDetails);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
