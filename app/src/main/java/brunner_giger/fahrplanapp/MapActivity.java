@@ -1,7 +1,13 @@
 package brunner_giger.fahrplanapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.widget.RadioGroup;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -12,7 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import brunner_giger.fahrplanapp.Model.ConnectionSection;
 
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ArrayList<ConnectionSection> ConnectionSections;
@@ -22,28 +28,46 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_map);
-        ConnectionSections = (ArrayList<ConnectionSection>)( this.getIntent().getBundleExtra("bundle").getSerializable("connections"));
+        ConnectionSections = (ArrayList<ConnectionSection>) (this.getIntent().getBundleExtra("bundle").getSerializable("connections"));
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.maptoolbar);
+        toolbar.setTitle(R.string.ConnectionDetails);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         // Get the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        final RadioGroup mapRadioGroup = (RadioGroup) findViewById(R.id.rbgMap);
+        mapRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                // find which radio button is selected and change Map-Type
+                if (checkedId == R.id.rbNormal) {
+                    mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                } else if (checkedId == R.id.rbTerrain) {
+                    mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                } else if (checkedId == R.id.rbSatellite) {
+                    mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                } else if (checkedId == R.id.rbHybrid) {
+                    mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                }
+            }
+        });
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady (GoogleMap googleMap){
         mMap = googleMap;
 
-        // Change Map-Type
-/*
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        mMap.setMapType(GoogleMap.MAP_TYPE_NONE);
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-*/
         String city = "";
-
         for (int i = 0; i < ConnectionSections.size(); i++) {
 
             double x = Double.valueOf(ConnectionSections.get(i).Dep_Latitude);
@@ -59,7 +83,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         city = ConnectionSections.get(0).From;
         LatLng posF = new LatLng(dx, dy);
         // this marker has not to be set !
-//        mMap.addMarker(new MarkerOptions().position(pos).title(city));
+        //        mMap.addMarker(new MarkerOptions().position(pos).title(city));
 
         double tx = Double.valueOf(ConnectionSections.get(0).ToEnd_Latitude);
         double ty = Double.valueOf(ConnectionSections.get(0).ToEnd_Longitude);
@@ -67,7 +91,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         LatLng posT = new LatLng(tx, ty);
         mMap.addMarker(new MarkerOptions().position(posT).title(city));
 
-        LatLng posDelta = new LatLng((double) Math.abs((dx+tx)/2), (double)Math.abs((dy+ty)/2));
+        LatLng posDelta = new LatLng((double) Math.abs((dx + tx) / 2), (double) Math.abs((dy + ty) / 2));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(posDelta));
 
         // Define the most S/W and N/E coordinates
@@ -75,7 +99,18 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         LatLng posNE = new LatLng(Math.max(posF.latitude, posT.latitude), Math.max(posF.longitude, posT.longitude));
 
         LatLngBounds llb = new LatLngBounds(posSW, posNE);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(llb,200));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(llb, 200));
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item){
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            // This ID represents the Up button
+            navigateUpTo(new Intent(this, FahrplanFragment.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

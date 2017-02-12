@@ -18,4 +18,5 @@
     <string name="richtung">Richtung</string>
     <string name="gl">Gl.</string>
     <string name="streckenabschnitte">Streckenabschnitte</string>
+    <string name="abkTag">"Tg. "</string>
 </resources>

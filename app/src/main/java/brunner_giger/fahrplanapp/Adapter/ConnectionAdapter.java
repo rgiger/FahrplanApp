@@ -29,6 +29,8 @@ public class ConnectionAdapter extends ArrayAdapter<Connection> {
     private SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
     private SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
     private DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    private SimpleDateFormat sdfDuration = new SimpleDateFormat("HH'h':mm'm'");
+    private DateFormat inputFormatDuration = new SimpleDateFormat("dd'd'HH:mm:ss");
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -80,7 +82,20 @@ public class ConnectionAdapter extends ArrayAdapter<Connection> {
             e.printStackTrace();
         }
 
-        tvDuration.setText(connection.getDuration());
+        Calendar duration = Calendar.getInstance();
+        try {
+            duration.setTime(inputFormatDuration.parse(connection.getDuration()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // Check if Duration ist longer than a day
+        String temp =  connection.getDuration();
+        temp = temp.substring(0, temp.indexOf('d'));
+        int iDay = Integer.valueOf(temp);
+        String strDay =(iDay > 0) ?  String.valueOf(iDay) + "Tg. " : "";
+
+        tvDuration.setText(strDay + sdfDuration.format(duration.getTime()));
         tvDepartureDate.setText(sdfDate.format(departure.getTime()));
         tvDepartureTime.setText(sdfTime.format(departure.getTime()));
         tvArrivalDate.setText(sdfDate.format(arrival.getTime()));
