@@ -289,6 +289,7 @@ public class FahrplanFragment extends Fragment {
             if(connectionList != null ) {
                 List<Connection> lconnections= connectionList.getConnections();
                 if(lconnections != null) {
+                    //TODO:Wenn Liste leer, Text anzeigen.
                     if (listOfConnections == null) {
                         listView = (ListView) FahrplanView.findViewById(R.id.listConnections);
                         listOfConnections = lconnections;

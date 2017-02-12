@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:text="Von" />
+                android:text="@string/From" />
 
             <ProgressBar
                 android:id="@+id/pb_loading_indicatorFrom"
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="1dp"
-                android:text="Nach" />
+                android:text="@string/To" />
 
             <ProgressBar
                 android:id="@+id/pb_loading_indicatorTo"
@@ -133,13 +133,13 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="1dp">
 
-            <TextView
+          <!--  <TextView
                 android:id="@+id/WhenLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="0dp"
-                android:text="Abfahrt" />
+                android:text="Abfahrt" />-->
 
             <Button
                 android:id="@+id/btnSetWhen"
@@ -147,7 +147,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/flTime"
-                android:layout_marginTop="20dp"
                 android:background="@drawable/transparentbackground_withoutborder"
                 android:text="Abfahrt"
                 android:textAlignment="textStart"
@@ -173,7 +172,7 @@
             android:background="@drawable/transparentbackground_withoutborder"
             android:paddingLeft="75dp"
             android:paddingRight="75dp"
-            android:text="Verbindung suchen" />
+            android:text="@string/search_connection" />
 
         <View
             android:id="@+id/divisorBelowSearch"

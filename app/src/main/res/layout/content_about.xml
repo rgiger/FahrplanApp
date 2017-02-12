@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Produkt"
+        android:text="@string/product"
         android:textAllCaps="false"
         android:layout_marginTop="20dp"
         android:textSize="20sp"
@@ -25,17 +25,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FahrplanApp"
+        android:text="@string/app_name"
         android:layout_margin="5dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Version 1.0"
+        android:text="@string/version"
         android:layout_margin="5dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Team"
+        android:text="@string/team"
         android:textAllCaps="false"
         android:layout_marginTop="20dp"
         android:textSize="20sp"

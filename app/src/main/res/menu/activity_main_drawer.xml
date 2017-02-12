@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
+        <!--TODO: Logos ändern-->
         <item
             android:id="@+id/nav_fahrplan"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Fahrplan" />
+            android:title="@string/timetable" />
     </group>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_menu_manage"
-            android:title="About" />
+            android:title="@string/about" />
     </group>
 
-    <item android:title="Communicate">
+    <!--<item android:title="Communicate">
         <menu>
             <item
                 android:id="@+id/nav_share"
@@ -24,6 +25,6 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="Send" />
         </menu>
-    </item>
+    </item>-->
 
 </menu>
