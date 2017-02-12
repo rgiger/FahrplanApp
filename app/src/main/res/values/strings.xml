@@ -30,4 +30,8 @@
     <string name="team">Team</string>
     <string name="time">Zeit</string>
     <string name="travel_time">Wann fahren Sie?</string>
+    <string name="normal">Normal</string>
+    <string name="terrain">Gelände</string>
+    <string name="satellite">Satellit</string>
+    <string name="hybrid">Hybrid</string>
 </resources>

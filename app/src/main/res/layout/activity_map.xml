@@ -41,14 +41,14 @@
             android:id="@+id/rbgMap" >
 
             <RadioButton
-                android:text="Normal"
+                android:text="@string/normal"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/rbNormal" />
 
             <RadioButton
-                android:text="Terrain"
+                android:text="@string/terrain"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -56,7 +56,7 @@
                 android:id="@+id/rbTerrain" />
 
             <RadioButton
-                android:text="Satellite"
+                android:text="@string/satellite"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -64,7 +64,7 @@
                 android:id="@+id/rbSatellite" />
 
             <RadioButton
-                android:text="Hybrid"
+                android:text="@string/hybrid"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
