@@ -52,7 +52,6 @@ public class FahrplanFragment extends Fragment {
     private static final int THRESHOLD = 2;
     View FahrplanView = null;
 
-    //Calendar When = Calendar.getInstance();
     DepartureArrivalTime _departurearrivaltime;
     SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
     SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
@@ -117,22 +116,8 @@ public class FahrplanFragment extends Fragment {
                 if(totalItemCount > 0) {
                   if (firstVisibleInList != firstVisibleItem) {
                         firstVisibleInList = firstVisibleItem;
-
-                            View v = view.getChildAt(firstVisibleItem);
-                          //  RelativeLayout rl = (RelativeLayout)v.findViewById(R.id.rlDate);
-                            int i = 0;
-                            if(firstVisibleItem-1 > 0)
-                            {
-                                i = firstVisibleItem-1;
-                           //     rl.setVisibility(View.VISIBLE);
-                            }
-                            else
-                            {
-                           //     rl.setVisibility(View.GONE);
-                            }
-                            SetDateTop(i);
+                            SetDateTop(firstVisibleItem);
                     }
-                    //Check if the last view is visible
                     if (++firstVisibleItem + visibleItemCount > totalItemCount && totalItemCount >= VerbindungsCounter) {
                         VerbindungsCounter = VerbindungsCounter + 4;
                         LoadLaterConnections();
@@ -261,7 +246,6 @@ public class FahrplanFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
                 pb.setVisibility(View.GONE);
-                //TODO Fehlerhandling}
             }
         }
     }
@@ -270,7 +254,6 @@ public class FahrplanFragment extends Fragment {
     List<Connection> listOfConnections;
     ListView listView;
 
-    //TODO In (Service) auslagern
     private class LoaderTask extends AsyncTask<ConnectionSearch, Void, ConnectionList> {
         @Override
         protected ConnectionList doInBackground(ConnectionSearch... params) {
@@ -283,7 +266,6 @@ public class FahrplanFragment extends Fragment {
 
             } catch (OpenDataTransportException e) {
                 e.printStackTrace();
-                //TODO Fehlerhandling
             }
 
             return connectionList;
@@ -299,7 +281,6 @@ public class FahrplanFragment extends Fragment {
             if(connectionList != null ) {
                 List<Connection> lconnections = SortConnectionList(connectionList);
                 if(lconnections != null) {
-                    //TODO:Wenn Liste leer, Text anzeigen.
                     if (listOfConnections == null) {
                         listView = (ListView) FahrplanView.findViewById(R.id.listConnections);
                         listOfConnections = lconnections;

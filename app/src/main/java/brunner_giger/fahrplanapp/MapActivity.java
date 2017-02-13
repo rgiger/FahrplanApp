@@ -2,7 +2,6 @@ package brunner_giger.fahrplanapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -91,7 +90,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         LatLng posT = new LatLng(tx, ty);
         mMap.addMarker(new MarkerOptions().position(posT).title(city));
 
-        LatLng posDelta = new LatLng((double) Math.abs((dx + tx) / 2), (double) Math.abs((dy + ty) / 2));
+        LatLng posDelta = new LatLng(Math.abs((dx + tx) / 2), Math.abs((dy + ty) / 2));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(posDelta));
 
         // Define the most S/W and N/E coordinates

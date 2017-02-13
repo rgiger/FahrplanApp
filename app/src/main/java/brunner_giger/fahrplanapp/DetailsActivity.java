@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -47,7 +46,7 @@ public class DetailsActivity extends AppCompatActivity {
         try {
             dVer = Double.valueOf(gmv);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabMap);
@@ -69,7 +68,6 @@ public class DetailsActivity extends AppCompatActivity {
                     context.startActivity(intent);
 
 
-                    // TODO: 11.02.2017 Hiermit wird eine einfache Map angezeigt dafür in der Activity mit entsprechender Toolbar
                     Fragment fragment = null;
                     FragmentManager fragmentManager = getFragmentManager();
                     fragment = new MapFragment();

@@ -18,13 +18,6 @@
     <string name="search_connection">Verbindung suchen</string>
     <string name="Date">Datum</string>
     <string name="ConnectionDetails">Streckendetails</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_activity_map">Map</string>
-    <string name="title_activity_details">DetailsActivity</string>
     <string name="product">Produkt</string>
     <string name="version">Version 1.0</string>
     <string name="team">Team</string>
@@ -34,4 +27,8 @@
     <string name="terrain">Gelände</string>
     <string name="satellite">Satellit</string>
     <string name="hybrid">Hybrid</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

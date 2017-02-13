@@ -1,18 +1,10 @@
 package brunner_giger.fahrplanapp.Model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import ch.schoeb.opendatatransport.model.Connection;
 import ch.schoeb.opendatatransport.model.Section;
-
-/**
- * Created by r.giger on 08.02.2017.
- */
 
 public class ConnectionDetail implements Serializable {
         //implements Parcelable {
@@ -22,7 +14,7 @@ public class ConnectionDetail implements Serializable {
 
     public ConnectionDetail(Connection c) {
 
-        ConnectionSections = new ArrayList<ConnectionSection>();
+        ConnectionSections = new ArrayList<>();
 
         for (Section s : c.getSections()) {
 

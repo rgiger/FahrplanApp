@@ -1,6 +1,5 @@
 package brunner_giger.fahrplanapp.Dialog;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -14,17 +13,11 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Calendar;
 
 import brunner_giger.fahrplanapp.FahrplanFragment;
 import brunner_giger.fahrplanapp.Model.DepartureArrivalTime;
 import brunner_giger.fahrplanapp.R;
-
-import static brunner_giger.fahrplanapp.R.attr.colorPrimary;
 
 public class DepartureArrivalTimePickerDialog
       extends DialogFragment{

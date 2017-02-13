@@ -1,8 +1,5 @@
 package brunner_giger.fahrplanapp.Model;
 
-/**
- * Created by r.giger on 04.02.2017.
- */
 
 public class ConnectionSearch
 {

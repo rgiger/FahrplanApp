@@ -18,13 +18,7 @@ import ch.schoeb.opendatatransport.OpenDataTransportException;
 import ch.schoeb.opendatatransport.OpenTransportRepositoryFactory;
 import ch.schoeb.opendatatransport.model.Station;
 
-/**
- * Created by r.giger on 21.01.2017.
- */
-
 public class StationAutoCompleteAdapter extends BaseAdapter implements Filterable {
-    //private static final int MAX_RESULTS = 10;
-    //TODO: Anzahl Vorschläge begrenzen
     private Context mContext;
     private List<Station> resultList = new ArrayList<>();
 
@@ -69,7 +63,6 @@ public class StationAutoCompleteAdapter extends BaseAdapter implements Filterabl
                     try {
                         stations = findStations(mContext, constraint.toString());
                     } catch (OpenDataTransportException e) {
-                        //TODO: Exception abfangen
                         e.printStackTrace();
                     }
 

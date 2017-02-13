@@ -1,6 +1,7 @@
 package brunner_giger.fahrplanapp.Adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +24,14 @@ public class ConnectionSectionAdapter extends ArrayAdapter<ConnectionSection>  {
         super(context, 0, connectionSections);
     }
 
-    SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
-    DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    private SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
+    private DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
-        ConnectionSection connectionSection = (ConnectionSection) getItem(position);
+        ConnectionSection connectionSection = getItem(position);
 
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
@@ -42,6 +44,7 @@ public class ConnectionSectionAdapter extends ArrayAdapter<ConnectionSection>  {
         Calendar prognosisArr = Calendar.getInstance();
 
         try {
+            assert connectionSection != null;
             departure.setTime(inputFormat.parse(connectionSection.DepartureTime));
             arrival.setTime(inputFormat.parse(connectionSection.ArrivalTime));
 

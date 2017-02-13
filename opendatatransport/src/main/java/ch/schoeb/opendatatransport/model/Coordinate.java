@@ -1,7 +1,5 @@
 package ch.schoeb.opendatatransport.model;
 
-import java.util.List;
-
 public class Coordinate{
     private String type;
     private Number x;
