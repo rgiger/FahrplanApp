@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -90,15 +91,87 @@
     <RelativeLayout
         android:id="@+id/rladditionaldata"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
 
         <TextView
             android:id="@+id/tvDuration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
             android:text="Duration" />
+        <!-- <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             app:srcCompat="@mipmap/cap_1"
+             android:id="@+id/imCap2"
+             android:contentDescription="capacity 2nd class"
+             android:layout_alignParentEnd="true" />
+         <TextView
+             android:text="2. "
+             android:layout_width="wrap_content"
+             android:layout_marginLeft="10dp"
+             android:layout_height="wrap_content"
+             android:id="@+id/txtClass2"
+             android:layout_toStartOf="@id/imCap2"/>
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             app:srcCompat="@mipmap/cap_1"
+             android:id="@+id/imCap1"
+             android:contentDescription="capacity 1st class"
+             android:layout_toStartOf="@+id/txtClass2" />
+         <TextView
+             android:text="1. "
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_toEndOf="@id/tvDuration"
+             android:id="@+id/txtClass1"
+             android:textAlignment="textEnd"
+             android:layout_toStartOf="@id/imCap1"/>-->
 
-    </RelativeLayout>
-</LinearLayout>
+        <TextView
+            android:text="@string/gl"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            android:layout_alignBaseline="@+id/tvdetPatfDep"
+            android:layout_alignBottom="@+id/tvdetPatfDep"/>
+        <TextView
+            android:text="DepPlat"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdetPatfDep"
+            android:layout_alignBaseline="@+id/tvdetDeparture"
+            android:layout_alignBottom="@+id/tvdetDeparture"
+            android:layout_toEndOf="@id/textView3"
+            android:layout_alignParentEnd="false" />
+
+
+        <TextView
+            android:text="ArrPlat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdetPlatfArr"
+            android:layout_alignBaseline="@+id/tvdetArrival"
+            android:layout_alignBottom="@+id/tvdetArrival"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:text="@string/gl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvdetPlatfArr"
+            android:id="@+id/textView4"
+            android:layout_toStartOf="@+id/tvdetPlatfArr"
+            />
+
+
+     </RelativeLayout>
+
+ </LinearLayout>

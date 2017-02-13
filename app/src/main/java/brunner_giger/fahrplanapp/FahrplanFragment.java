@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import brunner_giger.fahrplanapp.Adapter.ConnectionAdapter;
@@ -113,7 +117,7 @@ public class FahrplanFragment extends Fragment {
                 if(totalItemCount > 0) {
                   if (firstVisibleInList != firstVisibleItem) {
                         firstVisibleInList = firstVisibleItem;
-                        try {
+
                             View v = view.getChildAt(firstVisibleItem);
                           //  RelativeLayout rl = (RelativeLayout)v.findViewById(R.id.rlDate);
                             int i = 0;
@@ -126,14 +130,7 @@ public class FahrplanFragment extends Fragment {
                             {
                            //     rl.setVisibility(View.GONE);
                             }
-                            Connection c = listOfConnections.get(i);
-                            Calendar cal = Calendar.getInstance();
-                            cal.setTime(inputFormat.parse(c.getTo().getArrival()));
-                            tvDateTop.setText(sdfDate.format(cal.getTime()));
-                            rlDateTop.setVisibility(View.VISIBLE);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                            SetDateTop(i);
                     }
                     //Check if the last view is visible
                     if (++firstVisibleItem + visibleItemCount > totalItemCount && totalItemCount >= VerbindungsCounter) {
@@ -163,6 +160,19 @@ public class FahrplanFragment extends Fragment {
             }
         });
 
+    }
+
+    private void SetDateTop(int i){
+
+        try {
+        Connection c = listOfConnections.get(i);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(inputFormat.parse(c.getTo().getArrival()));
+        tvDateTop.setText(sdfDate.format(cal.getTime()));
+        rlDateTop.setVisibility(View.VISIBLE);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void AddWhenButtonListener() {
@@ -287,7 +297,7 @@ public class FahrplanFragment extends Fragment {
         protected void onPostExecute(ConnectionList connectionList) {
             // Construct the data source
             if(connectionList != null ) {
-                List<Connection> lconnections= connectionList.getConnections();
+                List<Connection> lconnections = SortConnectionList(connectionList);
                 if(lconnections != null) {
                     //TODO:Wenn Liste leer, Text anzeigen.
                     if (listOfConnections == null) {
@@ -295,15 +305,17 @@ public class FahrplanFragment extends Fragment {
                         listOfConnections = lconnections;
                         ConnectionAdapter adapter = new ConnectionAdapter(getContext(), listOfConnections);
                         listView.setAdapter(adapter);
+                        if(lconnections.size()> 0)
+                        {
+                            SetDateTop(0);
+                        }
                     } else {
                         listOfConnections.addAll(lconnections);
                         ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
                     }
                 }
             }
-// Create the adapter to convert the array to views
 
-// Attach the adapter to a ListView
             ProgressBar pb = (android.widget.ProgressBar) FahrplanView.findViewById(R.id.pb_loading_indicatorListConnections);
             pb.setVisibility(View.GONE);
 
@@ -315,6 +327,25 @@ public class FahrplanFragment extends Fragment {
         }
     }
 
+    @NonNull
+    private List<Connection> SortConnectionList(ConnectionList connectionList) {
+        List<Connection> lconnections= connectionList.getConnections();
+        Collections.sort(lconnections, new Comparator<Connection>() {
+            @Override
+            public int compare(Connection o1, Connection o2) {
+                try {
+                    Date d1 = inputFormat.parse(o1.getFrom().getDeparture());
+                    Date d2 = inputFormat.parse(o2.getFrom().getDeparture());
+                    return d1.compareTo(d2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+              return 0;
+
+            }
+        });
+        return lconnections;
+    }
 
 
 }

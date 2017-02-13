@@ -50,9 +50,13 @@ public class ConnectionAdapter extends ArrayAdapter<Connection> {
         TextView tvArrivalDate = (TextView) convertView.findViewById(R.id.tvArrivalDate);
         TextView tvArrivalTime = (TextView) convertView.findViewById(R.id.tvArrivalTime);
         TextView tvDuration = (TextView) convertView.findViewById(R.id.tvDuration);
+        TextView tvdetPlatfArr = (TextView) convertView.findViewById(R.id.tvdetPlatfArr);
+        TextView tvdetPatfDep = (TextView) convertView.findViewById(R.id.tvdetPatfDep);
         // Populate the data into the template view using the data object
         tvFrom.setText(connection.getFrom().getStation().getName());
         RelativeLayout rlDate = (RelativeLayout) convertView.findViewById(R.id.rlDate);
+        tvdetPatfDep.setText(connection.getFrom().getPlatform());
+        tvdetPlatfArr.setText(connection.getTo().getPlatform());
 
         tvTo.setText(connection.getTo().getStation().getName());
         Calendar departure = Calendar.getInstance();
