@@ -7,7 +7,6 @@ import ch.schoeb.opendatatransport.model.Connection;
 import ch.schoeb.opendatatransport.model.Section;
 
 public class ConnectionDetail implements Serializable {
-        //implements Parcelable {
 
     public ArrayList<ConnectionSection> ConnectionSections;
 

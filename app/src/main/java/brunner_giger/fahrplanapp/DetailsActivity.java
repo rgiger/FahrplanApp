@@ -66,15 +66,6 @@ public class DetailsActivity extends AppCompatActivity {
                     b.putSerializable("connections", ConnectionSections);
                     intent.putExtra("bundle", b);
                     context.startActivity(intent);
-
-
-                    Fragment fragment = null;
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragment = new MapFragment();
-                    fragment.setArguments(b);
-                    // wenn dies auskommentiert wird, wird die Map angezeigt
-//                    fragmentManager.beginTransaction().replace(R.id.fragment, fragment).commit();
-
                 }
             });
         }
